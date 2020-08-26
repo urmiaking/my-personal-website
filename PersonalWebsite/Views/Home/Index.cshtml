@@ -1,0 +1,351 @@
+﻿
+@model IndexViewModel
+@{
+    ViewData["Title"] = "صفحه شخصی مسعود خدادادی";
+}
+
+<!--
+===================
+HOME
+===================
+-->
+<section class="mh-home" id="mh-home">
+    <div class="home-ovimg">
+        <div class="container">
+            <div class="row xs-column-reverse section-separator vertical-middle-content home-padding">
+                <div class="col-sm-6">
+                    <div class="mh-header-info">
+                        <div class="mh-promo wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
+                            <span>وبسایت شخصی</span>
+                        </div>
+
+                        <h2 class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">مسعود خدادادی</h2>
+                        <h4 class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">توسعه دهنده وب</h4>
+
+                        <ul>
+                            <li class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s"><i class="fa fa-envelope"></i><a href="mailto:">&nbsp; masoud.xpress@gmail.com</a></li>
+                            <li class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.5s"><i class="fa fa-phone"></i><a href="callto:">&nbsp; 2104 549 990 98+</a></li>
+                            <li class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.6s"><i class="fa fa-map-marker"></i><address>&nbsp; آذربایجان غربی، ارومیه، مدرس</address></li>
+                        </ul>
+
+                        <ul class="social-icon wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.7s">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="hero-img wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.6s">
+                        <div class="img-border">
+                            <img src="/images/profile.jpg" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+==================
+    ABOUT
+=================
+-->
+<section class="mh-about" id="mh-about">
+    <div class="container">
+        <div class="row section-separator">
+            <div class="col-sm-12 col-md-6">
+                <div class="mh-about-img shadow-2 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s">
+                    <img src="/images/@Model.AboutMe.Image" alt="" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="mh-about-inner">
+                    <h2 class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">درباره من</h2>
+                    <p class="justify wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">
+                        @Model.AboutMe.Description
+                    </p>
+                    <div class="mh-about-tag wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">
+                        <ul>
+                            @foreach (var technology in Model.AboutMe.Technologies)
+                            {
+                                <li><span>@technology.Title</span></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+===================
+    SERVICES
+===================
+-->
+<section class="mh-service">
+    <div class="container">
+        <div class="row section-separator">
+            <div class="col-sm-12 text-center section-title wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">
+                <h2>کارهایی که انجام می دهم</h2>
+            </div>
+            <div class="col-sm-4">
+                <div class="mh-service-item shadow-1 dark-bg wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">
+                    <i class="fa fa-bullseye purple-color"></i>
+                    <h3>تحلیل و طراحی سیستم</h3>
+                    <p class="justify">
+                        ساختن هر نرم افزار نیازمند تفکر، تحلیل نیازمندی ها و مدل سازی آن می باشد. از این رو، من در این زمینه سیستم هایی مانند
+                        سیستم تاکسیرانی، کلینیک، دانشگاه و فروشگاه دوره های مجازی را تحلیل و طراحی کرده ام.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mh-service-item shadow-1 dark-bg wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.5s">
+                    <i class="fa fa-code iron-color"></i>
+                    <h3>توسعه برنامه های تحت وب</h3>
+                    <p class="justify">
+                        برنامه های تحت وب را با استفاده از پلتفرم سریع و قدرتمند ASP.NET Core
+                        در مقیاس کوچک و بزرگ میسازم. تخصص اصلی من بک اند بوده اما به مباحث
+                        مربوط به فرانت اند نیز تسلط دارم.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="mh-service-item shadow-1 dark-bg wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.7s">
+                    <i class="fa fa-object-ungroup sky-color"></i>
+                    <h3>برنامه نویسی با سوکت</h3>
+                    <p class="justify">
+                        با استفاده از زبان جاوا، برنامه های بلادرنگ و Multi Thread میسازم.
+                        در این زمینه، سروری جهت ارتباط تلفن های همراه با دستگاه های هوشمند در
+                        شرکت Skynic توسعه داده ام
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+===================
+    SKILLS
+===================
+-->
+<section class="mh-skills" id="mh-skills">
+    <div class="container">
+        <div class="row section-separator">
+            <div class="section-title text-center col-sm-12">
+                <!--<h2>Skills</h2>-->
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="mh-skills-inner">
+                    <div class="mh-professional-skill wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">
+                        <h3>مهارت های فنی</h3>
+                        <div class="each-skills">
+                            @foreach (var skill in Model.TechnicalSkills)
+                            {
+                                <div class="candidatos">
+                                    <div class="parcial">
+                                        <div class="info">
+                                            <div class="nome">@skill.Title</div>
+                                            <div class="percentagem-num">@skill.Progress%</div>
+                                        </div>
+                                        <div class="progressBar">
+                                            <div class="percentagem" style="width: @skill.Progress%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="mh-professional-skills wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.5s">
+                    <h3>مهارت های فردی</h3>
+                    <ul class="mh-professional-progress">
+                        @foreach (var skill in Model.PersonalSkills)
+                        {
+                            <li>
+                                <div class="mh-progress mh-progress-circle" data-progress="@skill.Progress"></div>
+                                <div class="pr-skill-name">@skill.Title</div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+===================
+    EXPERIENCES
+===================
+-->
+<section class="mh-experince" id="mh-experience">
+    <div class="bolor-overlay">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="col-sm-12 col-md-6">
+                    <div class="mh-education">
+                        <h3 class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">تحصیلات</h3>
+                        <div class="mh-education-deatils">
+                            <!-- Education Institutes-->
+                            @{
+                                var educationTimer = 0.3;
+                                foreach (var education in Model.Educations)
+                                {
+                                    var effectDelay = $"{educationTimer}s";
+                                    <div class="mh-education-item dark-bg wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="@effectDelay">
+                                        <h4>@education.DegreeTitle, <a href="#">@education.CollegeName</a></h4>
+                                        <div class="mh-eduyear">@education.Duration</div>
+                                        <p class="justify">
+                                            @education.Description
+                                        </p>
+                                    </div>
+                                    educationTimer += 0.2;
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="mh-work">
+                        <h3 class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">تجربه کاری</h3>
+                        <div class="mh-experience-deatils">
+                            <!-- Education Institutes-->
+                            @{
+                                var experienceTimer = 0.4;
+                                foreach (var experience in Model.Experiences)
+                                {
+                                    var effectDelay = $"{experienceTimer}s";
+                                    <div class="mh-work-item dark-bg wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="@experienceTimer">
+                                        <h4>@experience.Title <a href="#">@experience.GreenTitle</a></h4>
+                                        <div class="mh-eduyear">@experience.Duration</div>
+                                        <span>تکنولوژی های مورد استفاده :</span>
+                                        <ul class="work-responsibility">
+                                            @foreach (var experienceTool in experience.ExperienceTools)
+                                            {
+                                                <li><i class="fa fa-circle"></i>@experienceTool.Tool.Name</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                                experienceTimer += 0.2;
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+===================
+    PORTFOLIO
+===================
+-->
+<section class="mh-portfolio" id="mh-portfolio">
+    <div class="container">
+        <div class="row section-separator">
+            <div class="section-title col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
+                <h3>نمونه کارهای من</h3>
+            </div>
+            <div class="part col-sm-12">
+                <div class="portfolio-nav col-sm-12" id="filter-button">
+                    <ul>
+                        <li data-filter="*" class="current wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s"> <span>همه</span></li>
+                        <li data-filter=".dot-net" class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s"><span>دات نت</span></li>
+                        <li data-filter=".java" class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s"><span>جاوا</span></li>
+                        <li data-filter=".python" class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s"><span>پایتون</span></li>
+                        <li data-filter=".microservice" class="wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.5s"><span>مایکروسرویس</span></li>
+                    </ul>
+                </div>
+                <div class="mh-project-gallery col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.5s" id="project-gallery">
+                    <div class="portfolioContainer row">
+                        @foreach (var workSample in Model.WorkSamples)
+                        {
+                            var categories = workSample.WorkSampleCategories.Select(a => a.Category.Group);
+                            var groups = "";
+                            var dataSrc = $"modal-{workSample.Id}";
+                            foreach (var category in categories)
+                            {
+                                switch (category)
+                                {
+                                    case Group.MicroService:
+                                        groups += " microservice ";
+                                        break;
+                                    case Group.Java:
+                                        groups += " java ";
+                                        break;
+                                    case Group.DotNet:
+                                        groups += " dot-net ";
+                                        break;
+                                    case Group.Python:
+                                        groups += " python ";
+                                        break;
+                                    default:
+                                        groups = "";
+                                        break;
+                                }
+                            }
+                            <div class="grid-item col-md-4 col-sm-6 col-xs-12 @groups">
+                                <figure>
+                                    <img src="/images/portfolio/@workSample.Image" alt="img04">
+                                    <figcaption class="fig-caption">
+                                        <i class="fa fa-search"></i>
+                                        <h5 class="title">@workSample.Title</h5>
+                                        <span class="sub-title">مشاهده جزییات</span>
+                                        <a data-fancybox data-src="#@dataSrc"></a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            
+                        }
+
+
+                    </div> <!-- End: .grid .project-gallery -->
+                </div> <!-- End: .grid .project-gallery -->
+            </div> <!-- End: .part -->
+        </div> <!-- End: .row -->
+    </div>
+    @foreach (var workSample in Model.WorkSamples)
+    {
+        var dataSrc = $"modal-{workSample.Id}";
+        <!-- Work Sample Modal -->
+        <div class="mh-portfolio-modal" id="@dataSrc">
+            <div class="container">
+                <div class="row mh-portfolio-modal-inner">
+                    <div class="col-sm-5">
+                        <h2 class="rtl-text">@workSample.Detail.Title</h2>
+                        <p class="justify">
+                            @workSample.Detail.Description
+                        </p>
+
+                        <a href="@workSample.Detail.Link" class="btn btn-fill"> <li class="fa fa-github"></li> مشاهده در گیت هاب</a>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="mh-portfolio-modal-img">
+                            <img src="/images/portfolio/@workSample.Detail.Image" alt="" class="img-fluid">
+                            <p class="justify">@workSample.Detail.ImageDescription</p>
+                        </div>
+                        <div class="mh-about-tag rtl-text">
+                            <ul>
+                                @foreach (var technology in workSample.Detail.Technologies.Split(","))
+                                {
+                                    <li><span>@technology</span></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>

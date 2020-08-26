@@ -1,0 +1,8 @@
+.justify {
+    text-align: justify;
+    direction: rtl;
+}
+
+.rtl-text{
+    text-align: right;
+}

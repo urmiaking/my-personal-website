@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html dir="rtl" lang="fa">
+
+<head>
+    <title>@ViewData["Title"]</title>
+
+    <!-- Required meta tags -->
+    <partial name="_MetaTags" />
+
+    <!-- FAV AND ICONS   -->
+    <partial name="_Favicons" />
+
+    <!-- Stylesheet files -->
+    <partial name="_Styles" />
+</head>
+<body class="dark-vertion black-bg mh-rtl">
+
+    <!-- Start Loader -->
+    <div class="section-loader">
+        <div class="loader">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- End Loader -->
+    <!--
+    ===================
+       NAVIGATION
+    ===================
+    -->
+    <partial name="_HeaderMenu" />
+
+    <!--
+    ===================
+    BODY
+    ===================
+    -->
+    @RenderBody()
+
+    <!--
+    ===================
+    FOOTER
+    ===================
+    -->
+    <partial name="_Footer" />
+
+    <!--
+    ==============
+    * JS Files *
+    ==============
+    -->
+    <partial name="_Scripts" />
+
+    <!-- STYLE SWITCH STYLESHEET ONLY FOR DEMO -->
+    <partial name="_ColorSwitcher" />
+
+</body>
+
+</html>
