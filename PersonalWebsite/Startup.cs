@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PersonalWebsite.Data;
+using PersonalWebsite.Services;
+using PersonalWebsite.Utilities;
 
 namespace PersonalWebsite
 {
@@ -28,6 +31,15 @@ namespace PersonalWebsite
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnectionString"));
+            });
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddTransient<IViewRenderService, RenderViewToString>();
+            services.AddHttpContextAccessor();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LogoutPath = "/";
+                options.LoginPath = "/Login";
+                options.Cookie.Name = "_ua";
             });
         }
 
@@ -51,6 +63,11 @@ namespace PersonalWebsite
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -19,6 +19,77 @@ namespace PersonalWebsite.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("PersonalWebsite.Areas.Admin.Models.MailServer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("HostAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Port")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ServerAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MailServers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HostAddress = "smtp.gmail.com",
+                            Password = "MASOUD7559",
+                            Port = 587,
+                            ServerAddress = "masoud.xpress@gmail.com"
+                        });
+                });
+
+            modelBuilder.Entity("PersonalWebsite.Areas.Admin.Models.SiteAdmin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResetPasswordCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteAdmins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "masoud.xpress@gmail.com",
+                            FullName = "مسعود خدادادی",
+                            Password = "f1ac294f56ceb706e90dd1719934c3ae444431483a2857bb001289f7d5acc0bb",
+                            ResetPasswordCode = ""
+                        });
+                });
+
             modelBuilder.Entity("PersonalWebsite.Models.AboutMe", b =>
                 {
                     b.Property<int>("Id")
@@ -678,49 +749,49 @@ namespace PersonalWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 643, DateTimeKind.Local).AddTicks(1290),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 494, DateTimeKind.Local).AddTicks(9622),
                             Image = "clinic.jpg",
                             Title = "کلینیک فوق تخصصی بهار"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(8988),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 499, DateTimeKind.Local).AddTicks(1482),
                             Image = "docker.png",
                             Title = "وبسایت خبری"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9050),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 499, DateTimeKind.Local).AddTicks(1563),
                             Image = "airlink-smart-hub.jpg",
                             Title = "سرور اسکای نیک"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9058),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 499, DateTimeKind.Local).AddTicks(1575),
                             Image = "machine-learning.png",
                             Title = "یادگیری ماشین"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9063),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 499, DateTimeKind.Local).AddTicks(1582),
                             Image = "corona.png",
                             Title = "وبسایت مدیریت آمار کرونا"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9067),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 499, DateTimeKind.Local).AddTicks(1590),
                             Image = "toplearn.png",
                             Title = "وبسایت تاپ لرن"
                         },
                         new
                         {
                             Id = 7,
-                            CreateDateTime = new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9071),
+                            CreateDateTime = new DateTime(2020, 8, 26, 22, 7, 43, 499, DateTimeKind.Local).AddTicks(1598),
                             Image = "university.jpg",
                             Title = "سیستم دانشگاه"
                         });

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PersonalWebsite.Areas.Admin.Models;
 using PersonalWebsite.Models;
 
 namespace PersonalWebsite.Data
@@ -29,6 +30,8 @@ namespace PersonalWebsite.Data
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            #region AboutMe
+
             modelBuilder.Entity<AboutMe>()
                 .HasData(new AboutMe()
                 {
@@ -36,6 +39,10 @@ namespace PersonalWebsite.Data
                     Description = "من، مسعود خدادادی، فارغ التحصیل رشته مهندسی کامپیوتر از دانشگاه ارومیه هستم. به طور حرفه ای در زمینه برنامه نویسی سمت سرور با زبان سی شارپ فعالیت می کنم و برنامه های تحت وب با پلتفرم ASP.Net Core توسعه می دهم. من همچنین در زمینه های زیر تجربه و مهارت دارم:",
                     Image = "dotnet.jpg"
                 });
+
+            #endregion
+
+            #region Technology
 
             modelBuilder.Entity<Technology>()
                 .HasData(new Technology()
@@ -119,6 +126,11 @@ namespace PersonalWebsite.Data
                     AboutMeId = 1,
                     Title = "Python"
                 });
+
+            #endregion
+
+            #region Technical Skill
+
             modelBuilder.Entity<TechnicalSkill>()
                 .HasData(new TechnicalSkill()
                 {
@@ -147,6 +159,10 @@ namespace PersonalWebsite.Data
                     Title = "Javascript"
                 });
 
+            #endregion
+
+            #region Personal Skill
+
             modelBuilder.Entity<PersonalSkill>()
                 .HasData(new PersonalSkill()
                 {
@@ -169,6 +185,10 @@ namespace PersonalWebsite.Data
                     Progress = 70,
                     Title = "کار تیمی"
                 });
+
+            #endregion
+
+            #region Education
 
             modelBuilder.Entity<Education>()
                 .HasData(new Education()
@@ -194,6 +214,10 @@ namespace PersonalWebsite.Data
                     Duration = "۱۳۹۹-..."
                 });
 
+            #endregion
+
+            #region Experience
+
             modelBuilder.Entity<Experience>()
                 .HasData(new Experience()
                 {
@@ -214,6 +238,10 @@ namespace PersonalWebsite.Data
                     Title = "پیاده سازی سایت خبری با معماری",
                     GreenTitle = "میکروسرویس"
                 });
+
+            #endregion
+
+            #region Tool
 
             modelBuilder.Entity<Tool>()
                 .HasData(new Tool()
@@ -242,6 +270,10 @@ namespace PersonalWebsite.Data
                     Name = "Docker, Kubernetes, Microservice architecture"
                 });
 
+            #endregion
+
+            #region ExperienceTool
+
             modelBuilder.Entity<ExperienceTool>()
                 .HasData(new ExperienceTool()
                 {
@@ -268,6 +300,10 @@ namespace PersonalWebsite.Data
                     ExperienceId = 3,
                     ToolId = 6
                 });
+
+            #endregion
+
+            #region WorkSample
 
             modelBuilder.Entity<WorkSample>()
                 .HasData(new WorkSample()
@@ -313,6 +349,10 @@ namespace PersonalWebsite.Data
                     Image = "university.jpg",
                     CreateDateTime = DateTime.Now
                 });
+
+            #endregion
+
+            #region Detail
 
             modelBuilder.Entity<Detail>()
                 .HasData(new Detail()
@@ -387,6 +427,10 @@ namespace PersonalWebsite.Data
                     WorkSampleId = 7
                 });
 
+            #endregion
+
+            #region Category
+
             modelBuilder.Entity<Category>()
                 .HasData(new Category()
                 {
@@ -405,6 +449,10 @@ namespace PersonalWebsite.Data
                     Id = 4,
                     Group = Group.MicroService
                 });
+
+            #endregion
+
+            #region WorkSampleCategory
 
             modelBuilder.Entity<WorkSampleCategory>()
                 .HasData(new WorkSampleCategory()
@@ -445,6 +493,10 @@ namespace PersonalWebsite.Data
                     CategoryId = 1
                 });
 
+            #endregion
+
+            #region ContactMe
+
             modelBuilder.Entity<ContactMe>()
                 .HasData(new ContactMe()
                 {
@@ -453,6 +505,36 @@ namespace PersonalWebsite.Data
                     EmailAddress = "masoud.xpress@gmail.com",
                     PhoneNumber = "+989382017559"
                 });
+
+            #endregion
+
+            #region SiteAdmin
+
+            modelBuilder.Entity<SiteAdmin>()
+                .HasData(new SiteAdmin()
+                {
+                    Id = 1,
+                    Email = "masoud.xpress@gmail.com",
+                    FullName = "مسعود خدادادی",
+                    Password = "f1ac294f56ceb706e90dd1719934c3ae444431483a2857bb001289f7d5acc0bb",
+                    ResetPasswordCode = ""
+                });
+
+            #endregion
+
+            #region MailServer
+
+            modelBuilder.Entity<MailServer>()
+                .HasData(new MailServer()
+                {
+                    Id = 1,
+                    HostAddress = "smtp.gmail.com",
+                    Port = 587,
+                    ServerAddress = "masoud.xpress@gmail.com",
+                    Password = "MASOUD7559"
+                });
+
+            #endregion
         }
     }
 }

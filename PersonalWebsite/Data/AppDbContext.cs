@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PersonalWebsite.Areas.Admin.Models;
 using PersonalWebsite.Models;
 
 namespace PersonalWebsite.Data
@@ -56,7 +57,19 @@ namespace PersonalWebsite.Data
 
         public virtual DbSet<WorkSampleCategory> WorkSampleCategories { get; set; }
 
-        public virtual DbSet<Detail> Details { get; set; }  
+        public virtual DbSet<Detail> Details { get; set; }
+
+        #endregion
+
+        #region Site Admin
+
+        public virtual DbSet<SiteAdmin> SiteAdmins { get; set; }
+
+        #endregion
+
+        #region MailServer
+
+        public DbSet<MailServer> MailServers { get; set; }
 
         #endregion
 

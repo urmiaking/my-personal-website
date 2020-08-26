@@ -1,0 +1,54 @@
+﻿@model LoginViewModel
+
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "ورود به صفحه مدیریت محتوا";
+}
+
+<div class="m-t-40 card-box">
+    <div class="text-center">
+        <h4 class="text-uppercase font-bold m-b-0">ورود</h4>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal m-t-20" asp-action="Login" method="post">
+
+            <div class="form-group ">
+                <div class="col-xs-12">
+                    <input asp-for="Email" class="form-control" type="email" placeholder="نام کاربری">
+                    <span asp-validation-for="Email"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input asp-for="Password" class="form-control" type="password" placeholder="کلمه عبور">
+                    <span asp-validation-for="Password"></span>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-xs-12">
+                    <div class="checkbox checkbox-custom">
+                        <input asp-for="RememberMe" type="checkbox">
+                        <label asp-for="RememberMe"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-center m-t-30">
+                <div class="col-xs-12">
+                    <button class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">ورود</button>
+                </div>
+            </div>
+
+            <div class="form-group m-t-30 m-b-0">
+                <div class="col-sm-12">
+                    <a asp-action="ForgetPassword" class="text-muted">
+                        <i class="fa fa-lock m-r-5"></i> آیا رمز خود را فراموش کرده اید؟
+                    </a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
