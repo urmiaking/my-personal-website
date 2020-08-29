@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "_MainLayout";
+    ViewData["Title"] = "صفحه اصلی";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>
+                        @ViewBag.TodayVisits
+                    </h3>
+                    <p>بازدیدهای امروز</p>
+                </div>
+                <div class="icon">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <br />
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <h3>
+                        @ViewBag.LastMonthVisitCount
+                    </h3>
+                    <p>بازدیدهای این ماه</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <br />
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>
+                        @ViewBag.TotalVisits
+                    </h3>
+                    <p>کل بازدیدها</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

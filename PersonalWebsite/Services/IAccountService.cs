@@ -7,7 +7,7 @@ using PersonalWebsite.Areas.Admin.Models;
 
 namespace PersonalWebsite.Services
 {
-    public interface ILoginService
+    public interface IAccountService
     {
         Task<bool> LoginAsync(LoginViewModel loginForm);
 

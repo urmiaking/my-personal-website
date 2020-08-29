@@ -11,11 +11,11 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     [Area("Admin")]
     public class AccountController : Controller
     {
-        private readonly ILoginService _loginService;
+        private readonly IAccountService _accountService;
 
-        public AccountController(ILoginService loginService)
+        public AccountController(IAccountService accountService)
         {
-            _loginService = loginService;
+            _accountService = accountService;
         }
 
         #region Login
@@ -36,7 +36,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return View(loginForm);
             }
 
-            var loginSucceed = await _loginService.LoginAsync(loginForm);
+            var loginSucceed = await _accountService.LoginAsync(loginForm);
 
             if (!loginSucceed)
             {
@@ -55,7 +55,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Logout()
         {
-            await _loginService.LogoutAsync();
+            await _accountService.LogoutAsync();
             return RedirectToAction("Index", "Home", new { area = "" });
         }
 
@@ -79,7 +79,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return View(forgetPasswordForm);
             }
 
-            var emailValidated = await _loginService.ValidateEmailAsync(forgetPasswordForm.Email);
+            var emailValidated = await _accountService.ValidateEmailAsync(forgetPasswordForm.Email);
 
             if (!emailValidated)
             {
@@ -87,7 +87,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return RedirectToAction("Login");
             }
 
-            var resetPasswordSent = await _loginService.SendResetPasswordAsync(forgetPasswordForm.Email);
+            var resetPasswordSent = await _accountService.SendResetPasswordAsync(forgetPasswordForm.Email);
 
             if (!resetPasswordSent)
             {
@@ -107,7 +107,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         [Route("[action]/{id}")]
         public async Task<IActionResult> ResetPassword(string id)
         {
-            var admin = await _loginService.GetAdminByResetPasswordCodeAsync(id);
+            var admin = await _accountService.GetAdminByResetPasswordCodeAsync(id);
 
             if (admin == null)
             {
@@ -132,7 +132,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return View(resetPasswordForm);
             }
 
-            var isPasswordReset = await _loginService.ResetPasswordAsync(resetPasswordForm);
+            var isPasswordReset = await _accountService.ResetPasswordAsync(resetPasswordForm);
 
             if (!isPasswordReset)
             {

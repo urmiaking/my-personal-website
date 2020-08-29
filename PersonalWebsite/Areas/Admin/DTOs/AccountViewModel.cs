@@ -39,7 +39,7 @@ namespace PersonalWebsite.Areas.Admin.DTOs
     }
 
     public class ResetPasswordViewModel
-    {
+    { 
         public string ResetCode { get; set; }
 
         [DisplayName("کلمه عبور جدید")]

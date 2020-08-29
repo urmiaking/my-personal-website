@@ -73,6 +73,12 @@ namespace PersonalWebsite.Data
 
         #endregion
 
+        #region ClientVisit
+
+        public virtual DbSet<ClientVisit> ClientVisits { get; set; }
+
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

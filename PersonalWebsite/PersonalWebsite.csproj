@@ -17,9 +17,12 @@
     <Compile Remove="Migrations\20200826023854_SeedData.Designer.cs" />
     <Compile Remove="Migrations\20200826025533_InitialMigration.cs" />
     <Compile Remove="Migrations\20200826025533_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200828215402_AddClientViit.cs" />
+    <Compile Remove="Migrations\20200828215402_AddClientViit.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
@@ -30,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\Admin\images\" />
   </ItemGroup>
 

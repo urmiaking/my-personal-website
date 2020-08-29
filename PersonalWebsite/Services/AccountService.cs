@@ -15,13 +15,13 @@ using PersonalWebsite.Utilities;
 
 namespace PersonalWebsite.Services
 {
-    public class LoginService : ILoginService
+    public class AccountService : IAccountService
     {
         private readonly AppDbContext _db;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IViewRenderService _viewRenderService;
 
-        public LoginService(AppDbContext db, IHttpContextAccessor httpContext, IViewRenderService viewRenderService)
+        public AccountService(AppDbContext db, IHttpContextAccessor httpContext, IViewRenderService viewRenderService)
         {
             _db = db;
             _httpContext = httpContext;

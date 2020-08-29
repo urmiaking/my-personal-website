@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalWebsite.Data;
 
 namespace PersonalWebsite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200828215429_AddClientVisits")]
+    partial class AddClientVisits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,6 +165,9 @@ namespace PersonalWebsite.Migrations
 
                     b.Property<string>("IpAddress")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VisitCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -767,49 +772,49 @@ namespace PersonalWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 848, DateTimeKind.Local).AddTicks(6469),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 713, DateTimeKind.Local).AddTicks(5729),
                             Image = "clinic.jpg",
                             Title = "کلینیک فوق تخصصی بهار"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 851, DateTimeKind.Local).AddTicks(9355),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 716, DateTimeKind.Local).AddTicks(9593),
                             Image = "docker.png",
                             Title = "وبسایت خبری"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 851, DateTimeKind.Local).AddTicks(9413),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 716, DateTimeKind.Local).AddTicks(9655),
                             Image = "airlink-smart-hub.jpg",
                             Title = "سرور اسکای نیک"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 851, DateTimeKind.Local).AddTicks(9420),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 716, DateTimeKind.Local).AddTicks(9662),
                             Image = "machine-learning.png",
                             Title = "یادگیری ماشین"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 851, DateTimeKind.Local).AddTicks(9424),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 716, DateTimeKind.Local).AddTicks(9666),
                             Image = "corona.png",
                             Title = "وبسایت مدیریت آمار کرونا"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 851, DateTimeKind.Local).AddTicks(9428),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 716, DateTimeKind.Local).AddTicks(9671),
                             Image = "toplearn.png",
                             Title = "وبسایت تاپ لرن"
                         },
                         new
                         {
                             Id = 7,
-                            CreateDateTime = new DateTime(2020, 8, 29, 2, 30, 32, 851, DateTimeKind.Local).AddTicks(9432),
+                            CreateDateTime = new DateTime(2020, 8, 29, 2, 24, 28, 716, DateTimeKind.Local).AddTicks(9675),
                             Image = "university.jpg",
                             Title = "سیستم دانشگاه"
                         });
