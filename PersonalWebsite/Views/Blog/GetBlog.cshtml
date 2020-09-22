@@ -1,0 +1,88 @@
+﻿@using Microsoft.EntityFrameworkCore
+@model Blog
+@inject AppDbContext Db
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="mh-home image-bg home-2-img" id="mh-home">
+    <div class="img-foverlay img-color-overlay">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="mh-page-title text-center col-sm-12">
+                    <h2>وبلاگ شخصی مسعود خدادادی</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mh-blog">
+    <div class="container">
+        <div class="row section-separator">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="mh-blog-item dark-bg blog-single">
+                            <img src="/images/@Model.ImageUrl" alt="" class="blog-image">
+                            <div class="blog-inner">
+                                <h2><a href="#">@Model.Title</a></h2>
+                                <div class="mh-blog-post-info">
+                                    <ul>
+                                        <li><strong>نویسنده :</strong><a href="#">@Model.Author</a></li>
+                                        <li><strong>در تاریخ:</strong><a href="#">@Model.DateTime.ToPersianDateString()</a></li>
+                                    </ul>
+                                </div>
+                                <p>@Model.Description </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 ">
+                        <!--Tags-->
+                    </div>
+                    <!-- Comments-->
+                </div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <div class="col-md-4">
+                <div class="mh-blog-sidebar">
+                    <div class="sidebar-item mh-author-info">
+                        <div class="mh-author-img">
+                            <div class="img-border">
+                                <img src="/images/profile.jpg" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                        <h2>مسعود خدادادی</h2>
+                        <h4>مهندس کامپیوتر</h4>
+                        <p>
+                            دارای مدرک کارشناسی مهندسی کامپیوتر و علاقمند به برنامه نویسی تحت دات نت
+                        </p>
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-item mh-blog-category">
+                        <h3>دسته بندی ها</h3>
+                        <ul>
+                            @foreach (var category in Db.BlogCategories.Include(a => a.Blogs))
+                            {
+                                <li><a href="#">@category.Name (@category.Blogs.Count)</a></li>
+                            }
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-item mh-blog-insta">
+                        <h3>اینستاگرام</h3>
+                        
+                        <div class='embedsocial-instagram' data-ref="5523d9e73b7fc0290b6f7f9142a8ead786bddfdd"></div><script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

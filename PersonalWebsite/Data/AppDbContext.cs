@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Areas.Admin.Models;
 using PersonalWebsite.Models;
+using PersonalWebsite.Models.Weblog;
 
 namespace PersonalWebsite.Data
 {
@@ -79,6 +80,13 @@ namespace PersonalWebsite.Data
 
         #endregion
 
+        #region Blog
+
+        public virtual DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<BlogCategory> BlogCategories { get; set; }
+
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -104,6 +112,10 @@ namespace PersonalWebsite.Data
             modelBuilder.Entity<WorkSampleCategory>()
                 .HasOne(et => et.Category)
                 .WithMany(t => t.WorkSampleCategories);
+
+            modelBuilder.Entity<Blog>()
+                .HasOne(b => b.Category)
+                .WithMany(c => c.Blogs);
 
             modelBuilder.Seed();
         }

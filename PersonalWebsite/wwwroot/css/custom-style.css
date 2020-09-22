@@ -6,3 +6,8 @@
 .rtl-text{
     text-align: right;
 }
+
+.blog-image {
+    width: 100%;
+    height: 100%;
+}

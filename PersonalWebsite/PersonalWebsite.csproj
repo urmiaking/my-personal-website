@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20200826025533_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20200828215402_AddClientViit.cs" />
     <Compile Remove="Migrations\20200828215402_AddClientViit.Designer.cs" />
+    <Compile Remove="Migrations\20200922212404_AddBlogs.cs" />
+    <Compile Remove="Migrations\20200922212404_AddBlogs.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +32,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="PersianDateTime.Core" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
