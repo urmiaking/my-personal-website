@@ -21,6 +21,8 @@ namespace PersonalWebsite.Models.Weblog
         public DateTime DateTime { get; set; }
         public string Tags { get; set; }
 
+        public int ViewCount { get; set; }
+
         public int CategoryId { get; set; }
         public virtual BlogCategory Category { get; set; }
     }

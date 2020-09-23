@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PersonalWebsite.Areas.Admin.DTOs;
 using PersonalWebsite.Data;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
@@ -30,7 +31,12 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
             ViewBag.TodayVisits = await _db.ClientVisits.CountAsync(a => a.DateTime > DateTime.Today);
 
-            return View();
+            var dashboardViewModel = new DashboardViewModel()
+            {
+                Blogs = await _db.Blogs.Include(a => a.Category).OrderByDescending(a => a.DateTime).Take(5).ToListAsync()
+            };
+
+            return View(dashboardViewModel);
         }
     }
 }

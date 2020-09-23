@@ -1,6 +1,8 @@
-﻿@{
+﻿@model DashboardViewModel
+@{
     Layout = "_MainLayout";
     ViewData["Title"] = "صفحه اصلی";
+    var i = 1;
 }
 
 <div class="container">
@@ -53,7 +55,45 @@
             </div>
         </div>
     </div>
+    <div class="row text-center m-t-20 m-b-20 m-r-10 m-l-10">
+        <div col-md-12>
+            <a asp-action="AddBlog" style="margin-bottom: 10px;" class="btn btn-block btn-primary btn-rounded waves-effect waves-light">
+                <i class="fa fa-pencil m-l-5"></i>
+                <span style="margin-right: 5px;">نوشته جدیدی بنویسید</span>
+            </a>
+        </div>
+    </div>
+
     <div class="row">
+        <div class="col-md-12">
+            @foreach (var blog in Model.Blogs)
+            {
+                <div class="bg-picture card-box">
+                    <div class="profile-info-name">
+                        <div class="dropdown pull-right">
+                            <i class="zmdi zmdi-eye"></i> @blog.ViewCount
+                        </div>
+                        <h4 class="header-title m-t-0 m-b-30">@blog.DateTime.ToPersianDateString()</h4>
+
+                        <div class="profile-info-name">
+                            <img src="/images/blog/@blog.ImageUrl"
+                                 class="img-thumbnail" alt="blog-image">
+                            <div class="profile-info-detail">
+                                <h3 class="m-t-0 m-b-0">@blog.Title</h3>
+                                <p class="text-muted m-b-20"><i>نویسنده : @blog.Author</i></p>
+                                <p>@blog.ShortDescription</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <a asp-action="GetBlog" asp-route-id="@blog.Id"
+                               class="pull-right btn btn-success btn-rounded waves-effect waves-light">ادامه مطلب</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
 
     </div>
 </div>
