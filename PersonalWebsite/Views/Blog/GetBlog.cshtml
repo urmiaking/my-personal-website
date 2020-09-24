@@ -5,7 +5,7 @@
     ViewData["Title"] = Model.Title;
 }
 
-<section class="mh-home image-bg home-2-img" id="mh-home">
+<section class="mh-home image-bg home-2-img">
     <div class="img-foverlay img-color-overlay">
         <div class="container">
             <div class="row section-separator">
@@ -37,8 +37,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 ">
+                    <div class="col-sm-12">
                         <!--Tags-->
+                        <h3>برچسب ها</h3>
+                        <div class="mh-blog-item dark-bg blog-single">
+                            <div class="mh-about-inner">
+                                <div class="mh-about-tag wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s" style="padding: 10px !important;">
+                                    <ul>
+                                        @foreach (var tag in Model.Tags.Split("،"))
+                                        {
+                                            <li><span><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@tag">@tag</a></span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Comments-->
                 </div>
@@ -70,7 +83,7 @@
                         <ul>
                             @foreach (var category in Db.BlogCategories.Include(a => a.Blogs))
                             {
-                                <li><a href="#">@category.Name (@category.Blogs.Count)</a></li>
+                                <li><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@category.Name">@category.Name (@category.Blogs.Count)</a></li>
                             }
                         </ul>
                     </div>

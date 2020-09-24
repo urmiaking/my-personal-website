@@ -1,0 +1,106 @@
+﻿@model PaginatedList<Blog>
+@{
+    ViewData["Title"] = "آرشیو نوشته های مسعود خدادادی";
+}
+
+<section class="mh-home image-bg home-2-img">
+    <div class="img-foverlay img-color-overlay">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="mh-page-title text-center col-sm-12">
+                    <h2>وبلاگ شخصی مسعود خدادادی</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--
+===================
+BLOGS
+===================
+-->
+<section class="mh-blog" id="mh-blog">
+    <div class="container">
+        <div class="row section-separator wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
+            <div class="col-sm-12 section-title">
+                @if (Model.Any())
+                {
+                    @if (ViewBag.CurrentFilter == null)
+                    {
+                        <h3>آرشیو نوشته های من</h3>
+                    }
+                    else
+                    {
+                        <h3>نوشته های یافت شده حاوی عبارت "@ViewBag.CurrentFilter"</h3>
+                    }
+                    <div class="form-group has-feedback">
+                        <form id="search-form">
+                            <div class="input-group">
+                                <span class="input-group-addon"></span>
+                                <input type="text" value="@ViewBag.CurrentFilter" name="searchString"
+                                       class="form-control search-blog-input" id="search-input"
+                                       placeholder="جستجو ..." style="border-left: 0px;">
+                            </div>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <h3>نوشته ای یافت نشد</h3>
+                }
+
+                <br />
+            </div>
+            @if (Model.Any())
+            {
+                @foreach (var blog in Model)
+                {
+                    <div class="col-sm-12 col-md-4">
+                        <div class="mh-blog-item dark-bg">
+                            <img src="/images/@blog.ImageUrl" alt="" class="img-fluid">
+                            <div class="blog-inner">
+                                <h2><a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id>@blog.Title</a></h2>
+                                <div class="mh-blog-post-info">
+                                    <ul>
+                                        <li><a>@blog.Author</a><strong></strong></li>
+                                        <li><a>@blog.DateTime.ToPersianDateString()</a><strong></strong></li>
+                                    </ul>
+                                </div>
+                                <p>@blog.ShortDescription</p>
+                                <a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id>ادامه مطلب</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+    @if (Model.Any())
+    {
+        <div class="text-center">
+            <br />
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+            @if (Model.Any())
+            {
+                <a asp-action="Index"
+                   asp-route-page="@(Model.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewBag.CurrentFilter"
+                   class="btn btn-default @prevDisabled">
+                    قبلی
+                </a>
+                <a asp-action="Index"
+                   asp-route-page="@(Model.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewBag.CurrentFilter"
+                   class="btn btn-default @nextDisabled">
+                    بعدی
+                </a>
+            }
+        </div>
+    }
+</section>
