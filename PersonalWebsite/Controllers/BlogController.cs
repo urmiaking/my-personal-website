@@ -66,6 +66,10 @@ namespace PersonalWebsite.Controllers
                 return NotFound();
             }
 
+            blog.ViewCount++;
+            _db.Update(blog);
+            await _db.SaveChangesAsync();
+
             return View(blog);
         }
     }

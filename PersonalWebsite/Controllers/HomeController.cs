@@ -45,7 +45,7 @@ namespace PersonalWebsite.Controllers
                     .ThenInclude(a => a.Category)
                     .Include(a => a.Detail)
                     .ToListAsync(),
-                Blogs = await _db.Blogs.Include(a => a.Category).Take(3).OrderByDescending(a => a.DateTime)
+                Blogs = await _db.Blogs.Include(a => a.Category).OrderByDescending(a => a.DateTime).Take(3)
                     .ToListAsync()
             };
             return View(indexViewModel);

@@ -22,6 +22,9 @@
     <link href="/Admin/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
     <link href="/Admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 
+    <!-- Plugins css-->
+    <link href="/Admin/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
+
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,7 +33,7 @@
     <![endif]-->
 
     <script src="/Admin/js/modernizr.min.js"></script>
-
+    @await RenderSectionAsync("Head", false)
 </head>
 
 
@@ -134,6 +137,16 @@
         <script src="/Admin/js/jquery.core.js"></script>
         <script src="/Admin/js/jquery.app.js"></script>
 
+        <!-- Bootstrap tags input -->
+        <script src="/Admin/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
+        <!-- jQuery Validate -->
+        <script src="/lib/jquery-validate/jquery.validate.min.js"></script>
+        <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        
+        @await RenderSectionAsync("Scripts", false)
+
         <partial name="_Toaster" />
+    </div>
 </body>
 </html>

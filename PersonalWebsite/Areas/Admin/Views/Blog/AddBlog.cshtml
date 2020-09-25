@@ -1,0 +1,99 @@
+﻿@model Blog
+@{
+    Layout = "_MainLayout";
+    ViewData["Title"] = "افزودن بلاگ جدید";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">افزودن بلاگ جدید</h4>
+                <form asp-action="AddBlog" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" placeholder="عنوان بلاگ">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="ShortDescription" class="control-label"></label>
+                                <input asp-for="ShortDescription" class="form-control" placeholder="شرح مختصر بلاگ">
+                                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control" rows="15" placeholder="مشروح اخبار را در اینجا بنویسید"
+                                          style="overflow: hidden; word-wrap: break-word; resize: horizontal;" id="description-editor"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                                <script type="text/javascript">
+
+                                    CKEDITOR.replace('description-editor', {
+                                        language: 'fa'
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="ImageUrl" class="control-label"></label>
+                                <input type="file" class="dropify" name="imageFile" data-height="300" required="" accept="image/x-png,image/gif,image/jpeg" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Tags" class="control-label"></label><br />
+                                <input asp-for="Tags" value="" data-role="tagsinput" /><br />
+                                <span asp-validation-for="Tags" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Head
+{
+    <script src="/Admin/plugins/ckeditor/ckeditor.js"></script>
+    <!-- form Uploads -->
+    <link href="/Admin/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts
+{
+    <!-- file uploads js -->
+    <script src="/Admin/plugins/fileuploads/js/dropify.min.js"></script>
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'عکس را به اینجا بکشید یا کلیک کنید',
+                'replace': 'برای جایگزینی عکس را به اینجا بکشید یا کلیک کنید',
+                'remove': 'پاک کردن',
+                'error': 'با پوزش فراوان، خطایی رخ داده'
+            },
+            error: {
+                'fileSize': 'حجم عکس بیشتر از حد مجاز است (1M).'
+            }
+        });
+    </script>
+}

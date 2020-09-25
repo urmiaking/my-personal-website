@@ -29,7 +29,40 @@
                 <li class="text-muted menu-title">دسته بندی ها</li>
 
                 <li>
-                    <a href="" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> صفحه اصلی </span> </a>
+                    <a asp-area="Admin" asp-controller="Blog" asp-action="Index" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> داشبورد </span> </a>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-controller="Blog" asp-action="AddBlog" class="waves-effect"><i class="fa fa-pencil"></i> <span> افزودن بلاگ </span> </a>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-controller="Blog" asp-action="" class="waves-effect"><i class="fa fa-archive"></i> <span> مدیریت بلاگ ها </span> </a>
+                </li>
+                
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i> <span> مدیریت محتوا </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a asp-area="Admin" asp-action="" class="waves-effect"><i class="fa fa-wordpress"></i> <span> درباره من </span> </a>
+                        </li>
+
+                        <li>
+                            <a asp-area="Admin" asp-action="" class="waves-effect"><i class="fa fa-code"></i> <span> مهارت های من </span> </a>
+                        </li>
+
+                        <li>
+                            <a asp-area="Admin" asp-action="" class="waves-effect"><i class="fa fa-expeditedssl"></i> <span> تجربه های من </span> </a>
+                        </li>
+
+                        <li>
+                            <a asp-area="Admin" asp-action="" class="waves-effect"><i class="fa fa-exchange"></i> <span> نمونه کارهای من </span> </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-action="" class="waves-effect"><i class="fa fa-arrow-right"></i> <span> بازگشت به صفحه اصلی </span> </a>
                 </li>
 
             </ul>

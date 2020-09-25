@@ -39,4 +39,20 @@
     <Folder Include="wwwroot\Admin\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.js" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.min.js" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.min.js.map" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.js" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.less" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js.map" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\dist\bootstrap-tagsinput.zip" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\src\bootstrap-tagsinput-angular.js" />
+    <None Include="wwwroot\Admin\plugins\bootstrap-tagsinput\src\bootstrap-tagsinput.js" />
+    <None Include="wwwroot\Admin\plugins\fileuploads\fonts\dropify.svg" />
+    <None Include="wwwroot\Admin\plugins\fileuploads\js\dropify.js" />
+    <None Include="wwwroot\Admin\plugins\fileuploads\js\dropify.min.js" />
+  </ItemGroup>
+
 </Project>
