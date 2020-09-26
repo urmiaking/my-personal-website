@@ -34,6 +34,7 @@ namespace PersonalWebsite
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnectionString"));
             });
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IPictureService, PictureService>();
             services.AddTransient<IViewRenderService, RenderViewToString>();
             services.AddHttpContextAccessor();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>

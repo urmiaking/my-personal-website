@@ -33,7 +33,6 @@ namespace PersonalWebsite.Models.Weblog
         public string Author { get; set; }
 
         [Display(Name = "عکس بلاگ")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string ImageUrl { get; set; }
 

@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <div class="mh-blog-item dark-bg blog-single">
-                            <img src="/images/@Model.ImageUrl" alt="" class="blog-image">
+                            <img src="/images/blog/@Model.ImageUrl" alt="" class="blog-image">
                             <div class="blog-inner">
                                 <h2><a href="#">@Model.Title</a></h2>
                                 <div class="mh-blog-post-info">
@@ -44,7 +44,7 @@
                             <div class="mh-about-inner">
                                 <div class="mh-about-tag wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s" style="padding: 10px !important;">
                                     <ul>
-                                        @foreach (var tag in Model.Tags.Split("،"))
+                                        @foreach (var tag in Model.Tags.Split(","))
                                         {
                                             <li><span><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@tag">@tag</a></span></li>
                                         }
