@@ -10,6 +10,24 @@ namespace PersonalWebsite.Services
 {
     public class PictureService : IPictureService
     {
+        public bool RemoveBlogImage(string imageUrl)
+        {
+            if (string.IsNullOrEmpty(imageUrl))
+            {
+                return false;
+            }
+
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/blog", imageUrl);
+
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<BlogPictureViewModel> SaveBlogImageAsync(IFormFile imageFile)
         {
             var blogPictureResult = new BlogPictureViewModel();

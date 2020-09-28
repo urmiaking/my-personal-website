@@ -33,7 +33,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
             var dashboardViewModel = new DashboardViewModel()
             {
-                Blogs = await _db.Blogs.Include(a => a.Category).OrderByDescending(a => a.DateTime).Take(5).ToListAsync()
+                Blogs = await _db.Blogs.Include(a => a.Category).OrderByDescending(a => a.DateTime).Take(6).ToListAsync()
             };
 
             return View(dashboardViewModel);

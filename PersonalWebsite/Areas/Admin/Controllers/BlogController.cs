@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Data;
 using PersonalWebsite.Models.Weblog;
 using PersonalWebsite.Services;
+using PersonalWebsite.Utilities;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -23,10 +24,46 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             _pictureService = pictureService;
         }
 
-        public IActionResult Index()
+
+        #region Blog Archive
+
+        public async Task<IActionResult> Index(string searchString, string currentFilter, int? page)
         {
-            return View();
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var blogs = _db.Blogs.OrderByDescending(b => b.DateTime);
+
+            var pageSize = 6;
+            var pageNumber = (page ?? 1);
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return View(await PaginatedList<Blog>.CreateAsync(blogs.AsNoTracking(), pageNumber, pageSize));
+            }
+
+            var searchBlogResults = _db.Blogs
+                .OrderByDescending(a => a.DateTime)
+                .Where(a =>
+                    a.Title.Contains(searchString) ||
+                    a.Description.Contains(searchString) ||
+                    a.ShortDescription.Contains(searchString) ||
+                    a.Tags.Contains(searchString));
+
+            return View(await PaginatedList<Blog>.CreateAsync(searchBlogResults.AsNoTracking(), pageNumber, pageSize));
         }
+
+        #endregion
+
+        #region Add Blog
 
         [HttpGet]
         [Route("[controller]/Add")]
@@ -86,9 +123,64 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             }
 
             TempData["Success"] = "بلاگ با موفقیت افزوده شد";
-            return RedirectToAction("Blogs");
+            return RedirectToAction("Index", "Blog", new {area = "Admin"});
 
         }
 
+        #endregion
+
+        #region Get Blog
+
+        [Route("[controller]/Details/{id}")]
+        public async Task<IActionResult> GetBlog(int id = 0)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var blog = await _db.Blogs.Include(a => a.Category).FirstOrDefaultAsync(b => b.Id.Equals(id));
+
+            if (blog is null)
+            {
+                return NotFound();
+            }
+
+            return View(blog);
+        }
+
+        #endregion
+
+        #region Delete Blog
+
+        public async Task<IActionResult> DeleteBlog(int id = 0)
+        {
+            if (id == 0)
+            {
+                return StatusCode(404);
+            }
+
+            var blog = await _db.Blogs.FindAsync(id);
+
+            if (blog is null)
+            {
+                return StatusCode(404);
+            }
+
+            var blogImageRemoved = _pictureService.RemoveBlogImage(blog.ImageUrl);
+
+            if (!blogImageRemoved)
+            {
+                //TODO: Log this
+                Console.WriteLine("Image Not Found");
+            }
+
+            _db.Blogs.Remove(blog);
+            await _db.SaveChangesAsync();
+
+            return StatusCode(200);
+        }
+
+        #endregion
     }
 }

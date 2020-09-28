@@ -17,3 +17,24 @@
     -moz-border-radius: 20px !important;
     -webkit-border-radius: 20px !important;
 }
+
+.keywords {
+    margin-top: 20px;
+    padding: 10px
+}
+
+.keywords a {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+    line-height: 18px;
+    font-size: 14px;
+    color: #767676;
+    margin: 3px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+.keywords a:hover {
+    background-color: #dfdfdf
+}

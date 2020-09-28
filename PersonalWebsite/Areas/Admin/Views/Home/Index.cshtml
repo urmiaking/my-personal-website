@@ -57,7 +57,8 @@
     </div>
     <div class="row text-center m-t-20 m-b-20 m-r-10 m-l-10">
         <div col-md-12>
-            <a asp-action="AddBlog" style="margin-bottom: 10px;" class="btn btn-block btn-primary btn-rounded waves-effect waves-light">
+            <a asp-controller="Blog" asp-action="AddBlog" style="margin-bottom: 10px;"
+               class="btn btn-block btn-primary btn-rounded waves-effect waves-light">
                 <i class="fa fa-pencil m-l-5"></i>
                 <span style="margin-right: 5px;">نوشته جدیدی بنویسید</span>
             </a>
@@ -85,9 +86,9 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                        <br/>
+                        <br />
                         <div class="row">
-                            <a asp-action="GetBlog" asp-route-id="@blog.Id"
+                            <a asp-area="Admin" asp-controller="Blog" asp-action="GetBlog" asp-route-id="@blog.Id"
                                class="pull-right btn btn-success btn-rounded waves-effect waves-light">ادامه مطلب</a>
                         </div>
                     </div>
@@ -96,4 +97,12 @@
         </div>
 
     </div>
+    @{
+        if (Model.Blogs.Count == 6)
+        {
+            <div class="text-center" style="margin-bottom: 20px">
+                <a asp-area="Admin" asp-controller="Blog" asp-action="Index" class="btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5">نمایش نوشته های بیشتر</a>
+            </div>
+        }
+    }
 </div>

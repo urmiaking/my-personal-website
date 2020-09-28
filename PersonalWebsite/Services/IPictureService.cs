@@ -10,5 +10,7 @@ namespace PersonalWebsite.Services
     public interface IPictureService
     {
         Task<BlogPictureViewModel> SaveBlogImageAsync(IFormFile imageFile);
+
+        bool RemoveBlogImage(string imageUrl);
     }
 }

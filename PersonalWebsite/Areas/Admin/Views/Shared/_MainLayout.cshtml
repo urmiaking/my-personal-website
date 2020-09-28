@@ -24,7 +24,7 @@
 
     <!-- Plugins css-->
     <link href="/Admin/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
-
+    <link href="/css/custom-style.css" rel="stylesheet" />
     <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,6 +33,8 @@
     <![endif]-->
 
     <script src="/Admin/js/modernizr.min.js"></script>
+    <!-- jQuery  -->
+    <script src="/Admin/js/jquery.min.js"></script>
     @await RenderSectionAsync("Head", false)
 </head>
 
@@ -83,6 +85,7 @@
                                 </ul>
                             </div>
                             <!-- End Notification bar -->
+                            @await RenderSectionAsync("Search", false)
                         </li>
                     </ul>
 

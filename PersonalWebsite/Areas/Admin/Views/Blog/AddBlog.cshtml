@@ -35,14 +35,24 @@
                         <div class="col-md-12">
                             <div class="form-group no-margin">
                                 <label asp-for="Description" class="control-label"></label>
-                                <textarea asp-for="Description" class="form-control" rows="15" placeholder="مشروح اخبار را در اینجا بنویسید"
-                                          style="overflow: hidden; word-wrap: break-word; resize: horizontal;" id="description-editor"></textarea>
+                                <textarea asp-for="Description" class="form-control" rows="15" placeholder="مشروح بلاگ را در اینجا بنویسید"
+                                          style="overflow: hidden; word-wrap: break-word; resize: horizontal; float: right" id="description-editor"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                                 <script type="text/javascript">
-
-                                    CKEDITOR.replace('description-editor', {
-                                        language: 'fa'
-                                    });
+                                    ClassicEditor
+                                        .create(document.querySelector('#description-editor'), {
+                                            toolbar: ["Autoformat", "BlockQuote", "Bold", "CKFinder", "CKFinderUploadAdapter", "Essentials", "Heading", "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "Indent", "Italic", "Link", "List", "MediaEmbed", "Paragraph", "PasteFromOffice", "Table", "TableToolbar", "TextTransformation"],
+                                            heading: {
+                                                options: [
+                                                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                                                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                                                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                                                ]
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.log(error);
+                                        });
                                 </script>
                             </div>
                         </div>
