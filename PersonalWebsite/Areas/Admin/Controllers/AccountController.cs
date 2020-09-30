@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalWebsite.Areas.Admin.DTOs;
@@ -21,15 +22,16 @@ namespace PersonalWebsite.Areas.Admin.Controllers
         #region Login
 
         [Route("[action]")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("[action]")]
-        public async Task<IActionResult> Login(LoginViewModel loginForm)
+        public async Task<IActionResult> Login(LoginViewModel loginForm, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -45,6 +47,16 @@ namespace PersonalWebsite.Areas.Admin.Controllers
             }
 
             TempData["Success"] = "مدیر عزیر، خوش آمدید!";
+
+            var decodedUrl = "";
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = WebUtility.UrlDecode(returnUrl);
+
+            if (Url.IsLocalUrl(decodedUrl))
+            {
+                return Redirect(decodedUrl);
+            }
+
             return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
