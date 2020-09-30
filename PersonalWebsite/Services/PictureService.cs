@@ -18,6 +18,24 @@ namespace PersonalWebsite.Services
             _db = db;
         }
 
+        public async Task<string> EditBlogImageAsync(string oldImageUrl, int blogId, IFormFile newImage)
+        {
+            if (string.IsNullOrEmpty(oldImageUrl))
+            {
+                return null;
+            }
+
+            var result = await SaveBlogImageAsync(newImage);
+
+            if (result.SavedSuccessfully)
+            {
+                RemoveBlogImage(oldImageUrl, blogId);
+                return result.ImageName;
+            }
+
+            return null;
+        }
+
         public bool RemoveBlogImage(string imageUrl, int blogId)
         {
             if (string.IsNullOrEmpty(imageUrl))

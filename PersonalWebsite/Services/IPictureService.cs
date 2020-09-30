@@ -12,5 +12,7 @@ namespace PersonalWebsite.Services
         Task<BlogPictureViewModel> SaveBlogImageAsync(IFormFile imageFile);
 
         bool RemoveBlogImage(string imageUrl, int blogId);
+
+        Task<string> EditBlogImageAsync(string oldImageUrl,int blogId, IFormFile newImage);
     }
 }

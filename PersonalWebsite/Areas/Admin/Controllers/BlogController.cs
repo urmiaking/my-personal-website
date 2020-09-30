@@ -153,6 +153,61 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
         #endregion
 
+        #region Edit Blog
+
+        [HttpGet]
+        [Route("[controller]/Edit/{id}")]
+        public async Task<IActionResult> EditBlog(int id = 0)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var blog = await _db.Blogs
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(a => a.Id.Equals(id));
+
+            if (blog is null)
+            {
+                return NotFound();
+            }
+
+            return View(blog);
+        }
+
+        [HttpPost]
+        [Route("[controller]/Edit/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditBlog(Blog blog, IFormFile imageFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(blog);
+            }
+
+            if (imageFile != null)
+            {
+                var newImageName = await _pictureService.EditBlogImageAsync(blog.ImageUrl, blog.Id, imageFile);
+
+                if (string.IsNullOrEmpty(newImageName))
+                {
+                    ModelState.AddModelError("Tags", "حجم عکس آپلود شده بیش از 500 کیلوبایت می باشد");
+                    return View(blog);
+                }
+
+                blog.ImageUrl = newImageName;
+            }
+
+            _db.Blogs.Update(blog);
+            await _db.SaveChangesAsync();
+
+            TempData["Success"] = "بلاگ مورد نظر با موفقیت ویرایش شد";
+            return RedirectToAction("GetBlog", "Blog", new {area="Admin", id=blog.Id});
+        }
+
+        #endregion
+
         #region Delete Blog
 
         public async Task<IActionResult> DeleteBlog(int id = 0)

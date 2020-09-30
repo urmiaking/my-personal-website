@@ -23,6 +23,11 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
+                            <a asp-area="Admin" asp-controller="Blog" asp-action="EditBlog" asp-route-id="@Model.Id">
+                                ویرایش
+                            </a>
+                        </li>
+                        <li>
                             <a id="delete-button">
                                 حذف
                             </a>
@@ -135,16 +140,19 @@
                         <li>
                             <div class="keywords" style="margin: 0 !important; ">
                                 <h5 class="font-600 m-b-5">برچسب ها</h5>
-                                @foreach (var tag in Model.Tags.Split(','))
-                                {
-                                    <p> <a asp-area="Admin" asp-controller="Blog" asp-action="Index" asp-route-searchString="@tag"> @tag </a> </p>
-                                }
+                                <p>
+                                    @foreach (var tag in Model.Tags.Split(','))
+                                    {
+                                        <a asp-area="Admin" asp-controller="Blog" asp-action="Index" asp-route-searchString="@tag"> @tag </a>
+
+                                    }
+                                </p>
                             </div>
                         </li>
                     </ul>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </div>

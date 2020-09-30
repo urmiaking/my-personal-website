@@ -1,0 +1,129 @@
+﻿@model Blog
+@inject AppDbContext Db
+
+@{
+    ViewData["Title"] = "ویرایش بلاگ";
+    Layout = "_MainLayout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">ویرایش بلاگ</h4>
+                <form asp-area="Admin" asp-controller="Blog" asp-action="EditBlog" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" placeholder="عنوان بلاگ">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="ShortDescription" class="control-label"></label>
+                                <input asp-for="ShortDescription" class="form-control" placeholder="شرح مختصر بلاگ">
+                                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control" rows="15" placeholder="مشروح بلاگ را در اینجا بنویسید"
+                                          style="overflow: hidden; word-wrap: break-word; resize: horizontal; float: right" id="description-editor"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                                <script type="text/javascript">
+                                    ClassicEditor
+                                        .create(document.querySelector('#description-editor'), {
+                                            toolbar: ["Autoformat", "BlockQuote", "Bold", "CKFinder", "CKFinderUploadAdapter", "Essentials", "Heading", "Image", "ImageCaption", "ImageStyle", "ImageToolbar", "ImageUpload", "Indent", "Italic", "Link", "List", "MediaEmbed", "Paragraph", "PasteFromOffice", "Table", "TableToolbar", "TextTransformation"],
+                                            heading: {
+                                                options: [
+                                                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                                                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                                                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                                                ]
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.log(error);
+                                        });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="ImageUrl" class="control-label"></label>
+                                <input type="file" class="dropify" name="imageFile" data-height="300" data-default-file="/../../images/blog/@Model.ImageUrl" accept="image/x-png,image/gif,image/jpeg" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="ImageUrl" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Category.Name" class="control-label"></label>
+                                <select asp-for="Category.Name" class="form-control" dir="rtl"
+                                        asp-items="new SelectList(Db.BlogCategories.Select(a => a.Name))">
+                                </select>
+                                <span asp-validation-for="Category.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Category.Id" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Tags" class="control-label"></label><br />
+                                <input asp-for="Tags" data-role="tagsinput" /><br />
+                                <span asp-validation-for="Tags" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="DateTime" />
+                    <input type="hidden" asp-for="ViewCount" />
+                    <input type="hidden" asp-for="Author" />
+                    <input type="hidden" asp-for="CategoryId" />
+                    <input type="hidden" asp-for="Id"/>
+                    <hr />
+
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Head
+{
+    <script src="/Admin/plugins/ckeditor/ckeditor.js"></script>
+    <!-- form Uploads -->
+    <link href="/Admin/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts
+{
+    <!-- file uploads js -->
+    <script src="/Admin/plugins/fileuploads/js/dropify.min.js"></script>
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'عکس را به اینجا بکشید یا کلیک کنید',
+                'replace': 'برای جایگزینی عکس را به اینجا بکشید یا کلیک کنید',
+                'remove': 'پاک کردن',
+                'error': 'با پوزش فراوان، خطایی رخ داده'
+            },
+            error: {
+                'fileSize': 'حجم عکس بیشتر از حد مجاز است (1M).'
+            }
+        });
+    </script>
+}
