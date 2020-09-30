@@ -5,12 +5,20 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using PersonalWebsite.Areas.Admin.DTOs;
+using PersonalWebsite.Data;
 
 namespace PersonalWebsite.Services
 {
     public class PictureService : IPictureService
     {
-        public bool RemoveBlogImage(string imageUrl)
+        private readonly AppDbContext _db;
+
+        public PictureService(AppDbContext db)
+        {
+            _db = db;
+        }
+
+        public bool RemoveBlogImage(string imageUrl, int blogId)
         {
             if (string.IsNullOrEmpty(imageUrl))
             {
@@ -19,7 +27,9 @@ namespace PersonalWebsite.Services
 
             var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/blog", imageUrl);
 
-            if (File.Exists(imagePath))
+            var imageCantBeRemoved = _db.Blogs.Any(a => a.ImageUrl.Equals(imageUrl) && !a.Id.Equals(blogId));
+
+            if (File.Exists(imagePath) && !imageCantBeRemoved)
             {
                 File.Delete(imagePath);
                 return true;

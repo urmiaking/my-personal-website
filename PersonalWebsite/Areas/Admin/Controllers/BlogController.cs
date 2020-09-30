@@ -167,12 +167,12 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return StatusCode(404);
             }
 
-            var blogImageRemoved = _pictureService.RemoveBlogImage(blog.ImageUrl);
+            var blogImageRemoved = _pictureService.RemoveBlogImage(blog.ImageUrl, blog.Id);
 
             if (!blogImageRemoved)
             {
                 //TODO: Log this
-                Console.WriteLine("Image Not Found");
+                Console.WriteLine("Image Cannot be deleted");
             }
 
             _db.Blogs.Remove(blog);
