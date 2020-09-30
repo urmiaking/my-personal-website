@@ -1,0 +1,182 @@
+﻿@model BlogCategoryViewModel
+@{
+    ViewData["Title"] = "مدیریت دسته بندی بلاگ ها";
+    Layout = "_MainLayout";
+    int i = 0;
+}
+
+@section Head{
+    <!-- Sweet Alert css -->
+    <link href="/Admin/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css" />
+    <script src="/Admin/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+}
+
+<div class="container">
+    <div id="add-blog-category-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" asp-area="Admin" asp-controller="BlogCategory" asp-action="Add">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">اضافه کردن دسته بندی برای بلاگ ها</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="BlogCategory.Name" class="control-label"></label>
+                                    <input asp-for="BlogCategory.Name" type="text" class="form-control" placeholder="نام دسته">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <div class="text-center">
+        <button class="btn btn-rounded btn-info btn-block" data-toggle="modal" data-target="#add-blog-category-modal"><i class="fa fa-pencil">&nbsp;</i> اضافه کردن دسته جدید </button>
+        <br />
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">لیست دسته بندی ها</h4>
+                @if (Model.BlogCategories.Any())
+                {
+                    <table class="table table table-hover m-0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    نام دسته بندی
+                                </th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.BlogCategories)
+                            {
+                                var deleteButtonId = "delete-btn-" + i;
+                                var editButtonId = "edit-btn-" + i;
+                                var editModalId = "edit-modal-" + i;
+                                <tr id="row-@i">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+
+                                    <td>
+                                        <a id="@editButtonId" class="btn btn-sm btn-success" data-toggle="modal" data-target="#@editModalId">ویرایش</a> |
+
+                                        <a id="@deleteButtonId" class="btn btn-sm btn-danger">حذف</a>
+                                    </td>
+                                    <script>
+                                    $('#@deleteButtonId').click(function() {
+                                        swal({
+                                                title: "مطمئنی ؟؟",
+                                                text: "",
+                                                type: "error",
+                                                showCancelButton: true,
+                                                confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                                confirmButtonText: 'بله!',
+                                                closeOnConfirm: false
+                                            },
+                                            function(isConfirm) {
+                                                if (isConfirm) {
+                                                    $.ajax({
+                                                        url: "/BlogCategory/Delete/",
+                                                        type: "POST",
+                                                        data: {
+                                                            id: @item.Id
+                                                        },
+                                                        dataType: "html",
+                                                        success: function() {
+                                                            swal("انجام شد!",
+                                                                "دسته مورد نظر با موفقت حذف شد!",
+                                                                "success");
+                                                            $("#row-@i").hide("slow",
+                                                                function() {
+                                                                    $("#row-@i").remove();
+                                                                });
+                                                        },
+                                                        statusCode: {
+                                                            404: function () {
+                                                                swal({
+                                                                        title: "دسترسی غیر مجاز!",
+                                                                        text: "لطفا از دستکاری داده های ارسالی اجتناب کنید!",
+                                                                        type: "error",
+                                                                        showCancelButton: false,
+                                                                        confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                                                        confirmButtonText: 'باشه ببخشید!',
+                                                                        closeOnConfirm: true
+                                                                    }
+                                                                );
+                                                            },
+                                                            403: function () {
+                                                                swal({
+                                                                    title: "خطا!",
+                                                                    text: "این دسته خالی نمی باشد!",
+                                                                    type: "error",
+                                                                    showCancelButton: false,
+                                                                    confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                                                    confirmButtonText: 'باشه!',
+                                                                    closeOnConfirm: true
+                                                                }
+                                                                );
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                    });
+                                    </script>
+                                    <div id="@editModalId" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post" asp-area="Admin" asp-controller="BlogCategory" asp-action="Edit">
+                                                    <input type="hidden" value="@item.Id" name="id" />
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <h4 class="modal-title">ویرایش دسته بندی</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="categoryNameEdit" class="control-label">نام دسته</label>
+                                                                    <input type="text" class="form-control" id="categoryNameEdit" value="@item.Name" required="" name="categoryName" placeholder="نام دسته">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                                                        <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center">
+                        هیچ دسته ای وجود ندارد
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -41,4 +41,20 @@ namespace PersonalWebsite.Areas.Admin.DTOs
         public bool SizeLimitReached { get; set; }
         public bool SavedSuccessfully { get; set; }
     }
+
+    public class BlogCategoryViewModel
+    {
+        public BlogCategoryViewModel()
+        {
+            BlogCategories = new List<BlogCategory>();
+        }
+
+        public BlogCategoryViewModel(List<BlogCategory> blogCategories, BlogCategory blogCategory)
+        {
+            BlogCategories = blogCategories ?? new List<BlogCategory>();
+            BlogCategory = blogCategory;
+        }
+        public List<BlogCategory> BlogCategories { get; set; }
+        public BlogCategory BlogCategory { get; set; }
+    }
 }
