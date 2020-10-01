@@ -18,6 +18,31 @@ namespace PersonalWebsite.Services
             _db = db;
         }
 
+        public async Task<string> EditAboutMeImageAsync(IFormFile imageFile, string oldImageName)
+        {
+            if (imageFile.Length > 500000)
+            {
+                return null;
+            }
+
+            var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", oldImageName);
+
+            if (File.Exists(oldImagePath))
+            {
+                File.Delete(oldImagePath);
+            }
+
+            var newImagePath = Guid.NewGuid() + Path.GetExtension(imageFile.FileName);
+            var savePath = Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot/images",
+                newImagePath
+            );
+            await using var stream = new FileStream(savePath, FileMode.Create);
+            await imageFile.CopyToAsync(stream);
+
+            return newImagePath;
+        }
+
         public async Task<string> EditBlogImageAsync(string oldImageUrl, int blogId, IFormFile newImage)
         {
             if (string.IsNullOrEmpty(oldImageUrl))

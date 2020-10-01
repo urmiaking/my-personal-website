@@ -1,0 +1,227 @@
+﻿@model AboutMe
+@{
+    ViewData["Title"] = "درباره من";
+    Layout = "_MainLayout";
+    var i = 0;
+}
+
+@section Head
+{
+    <!-- form Uploads -->
+    <link href="/Admin/plugins/fileuploads/css/dropify.min.css" rel="stylesheet" type="text/css" />
+    <!-- Sweet Alert css -->
+    <link href="/Admin/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css" />
+    <script src="/Admin/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+}
+
+@section Scripts
+{
+    <!-- file uploads js -->
+    <script src="/Admin/plugins/fileuploads/js/dropify.min.js"></script>
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'عکس را به اینجا بکشید یا کلیک کنید',
+                'replace': 'برای جایگزینی عکس را به اینجا بکشید یا کلیک کنید',
+                'remove': 'پاک کردن',
+                'error': 'با پوزش فراوان، خطایی رخ داده'
+            },
+            error: {
+                'fileSize': 'حجم عکس بیشتر از حد مجاز است (1M).'
+            }
+        });
+    </script>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">درباره من</h4>
+                <form asp-area="Admin" asp-controller="AboutMe" asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Image" />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Image" class="control-label"></label>
+                                <input type="file" class="dropify" name="imageFile" data-height="300" data-default-file="/../../images/@Model.Image" accept="image/x-png,image/gif,image/jpeg" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control" placeholder="شرح مختصری از خود بنویسید"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30">لیست مهارت ها</h4>
+                @if (Model.Technologies.Any())
+                {
+                    <table class="table table table-hover m-0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    نام مهارت
+                                </th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.Technologies)
+                            {
+                                var deleteButtonId = "delete-btn-" + i;
+                                var editButtonId = "edit-btn-" + i;
+                                var editModalId = "edit-modal-" + i;
+                                <tr id="row-@i">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+
+                                    <td>
+                                        <a id="@editButtonId" class="btn btn-sm btn-success" data-toggle="modal" data-target="#@editModalId">ویرایش</a> |
+
+                                        <a id="@deleteButtonId" class="btn btn-sm btn-danger">حذف</a>
+                                    </td>
+                                    <script>
+                                    $('#@deleteButtonId').click(function() {
+                                        swal({
+                                                title: "مطمئنی ؟؟",
+                                                text: "",
+                                                type: "error",
+                                                showCancelButton: true,
+                                                confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                                confirmButtonText: 'بله!',
+                                                closeOnConfirm: false
+                                            },
+                                            function(isConfirm) {
+                                                if (isConfirm) {
+                                                    $.ajax({
+                                                        url: "/AboutMe/DeleteSkill/",
+                                                        type: "POST",
+                                                        data: {
+                                                            id: @item.Id
+                                                        },
+                                                        dataType: "html",
+                                                        success: function() {
+                                                            swal("انجام شد!",
+                                                                "مهارت مورد نظر با موفقت حذف شد!",
+                                                                "success");
+                                                            $("#row-@i").hide("slow",
+                                                                function() {
+                                                                    $("#row-@i").remove();
+                                                                });
+                                                        },
+                                                        statusCode: {
+                                                            404: function () {
+                                                                swal({
+                                                                        title: "دسترسی غیر مجاز!",
+                                                                        text: "لطفا از دستکاری داده های ارسالی اجتناب کنید!",
+                                                                        type: "error",
+                                                                        showCancelButton: false,
+                                                                        confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                                                        confirmButtonText: 'باشه ببخشید!',
+                                                                        closeOnConfirm: true
+                                                                    }
+                                                                );
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                    });
+                                    </script>
+                                    <div id="@editModalId" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post" asp-area="Admin" asp-controller="AboutMe" asp-action="EditSkill">
+                                                    <input type="hidden" value="@item.Id" name="id" />
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <h4 class="modal-title">ویرایش دسته بندی</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="skillNameEdit" class="control-label">نام مهارت</label>
+                                                                    <input type="text" class="form-control" id="skillNameEdit" value="@item.Title" required="" name="skillName" placeholder="عنوان مهارت">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                                                        <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center">
+                        هیچ مهارتی وجود ندارد
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div id="add-skill-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" asp-area="Admin" asp-controller="AboutMe" asp-action="AddSkill">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">اضافه کردن مهارت</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="skill-name" class="control-label">عنوان مهارت</label>
+                                    <input type="text" id="skill-name" required="" name="skillName" class="form-control" placeholder="عنوان مهارت">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <div class="text-center">
+        <button class="btn btn-rounded btn-info btn-block" data-toggle="modal" data-target="#add-skill-modal"><i class="fa fa-pencil">&nbsp;</i> اضافه کردن مهارت جدید </button>
+        <br />
+    </div>
+</div>

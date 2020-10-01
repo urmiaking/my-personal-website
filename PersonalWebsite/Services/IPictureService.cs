@@ -14,5 +14,6 @@ namespace PersonalWebsite.Services
         bool RemoveBlogImage(string imageUrl, int blogId);
 
         Task<string> EditBlogImageAsync(string oldImageUrl,int blogId, IFormFile newImage);
+        Task<string> EditAboutMeImageAsync(IFormFile imageFile, string oldImageName);
     }
 }

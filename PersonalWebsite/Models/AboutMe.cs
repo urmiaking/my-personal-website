@@ -16,8 +16,12 @@ namespace PersonalWebsite.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
+        [Display(Name = "درباره من")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [MaxLength(500, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Description { get; set; }
 
+        [Display(Name = "عکس")]
         public string Image { get; set; }
 
         public virtual List<Technology> Technologies { get; set; }
