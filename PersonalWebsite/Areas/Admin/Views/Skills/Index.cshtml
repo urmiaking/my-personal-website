@@ -156,7 +156,7 @@
                         @foreach (var technicalSkill in Model.TechnicalSkills)
                         {
                             <input asp-for="TechnicalSkills[k].Id" type="hidden" />
-                            <div class="col-md-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <label for="technical-skin-name" class="control-label">عنوان مهارت</label>
                                     <input asp-for="TechnicalSkills[k].Title"
@@ -164,7 +164,7 @@
                                            value="@technicalSkill.Title">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <label for="technical-skin-progress" class="control-label">درصد فراگیری</label>
                                     <input asp-for="TechnicalSkills[k].Progress"
