@@ -116,6 +116,8 @@
     <None Include="wwwroot\Admin\plugins\fileuploads\fonts\dropify.svg" />
     <None Include="wwwroot\Admin\plugins\fileuploads\js\dropify.js" />
     <None Include="wwwroot\Admin\plugins\fileuploads\js\dropify.min.js" />
+    <None Include="wwwroot\Admin\plugins\jquery-knob\excanvas.js" />
+    <None Include="wwwroot\Admin\plugins\jquery-knob\jquery.knob.js" />
   </ItemGroup>
 
 </Project>

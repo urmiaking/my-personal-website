@@ -58,4 +58,21 @@ namespace PersonalWebsite.Areas.Admin.DTOs
         public List<BlogCategory> BlogCategories { get; set; }
         public BlogCategory BlogCategory { get; set; }
     }
+
+    public class SkillViewModel
+    {
+        public SkillViewModel()
+        {
+            TechnicalSkills = new List<TechnicalSkill>();
+            PersonalSkills = new List<PersonalSkill>();
+        }
+        public SkillViewModel(List<TechnicalSkill> technicalSkills, List<PersonalSkill> personalSkills)
+        {
+            TechnicalSkills = technicalSkills ?? new List<TechnicalSkill>();
+            PersonalSkills = personalSkills ?? new List<PersonalSkill>();
+        }
+
+        public List<TechnicalSkill> TechnicalSkills { get; set; }
+        public List<PersonalSkill> PersonalSkills { get; set; }
+    }
 }

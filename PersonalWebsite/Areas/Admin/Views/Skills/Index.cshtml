@@ -1,0 +1,231 @@
+﻿@model SkillViewModel
+@{
+    ViewData["Title"] = "مدیریت مهارت های من";
+    Layout = "_MainLayout";
+    var colors = new List<string>
+{
+        "10c469", "71b6f9", "f9c851", "35b8e0", "ff8acc", "5b69bc", "ff5b5b"
+    };
+    var i = 0;
+
+    var classes = new List<string>
+{
+        "primary", "info", "pink", "warning", "success", "danger"
+    };
+    var j = 0;
+    var k = 0;
+}
+
+@section Head
+{
+    <!-- Circlifull chart css -->
+    <link href="/Admin/plugins/jquery-circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+    <!-- Switchery -->
+    <link href="/Admin/plugins/switchery/switchery.min.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <!-- KNOB JS -->
+    <!--[if IE]>
+        <script type="text/javascript" src="/Admin/plugins/jquery-knob/excanvas.js"></script>
+    <![endif]-->
+    <script src="/Admin/plugins/jquery-knob/jquery.knob.js"></script>
+
+    <!-- Circliful -->
+    <script src="/Admin/plugins/jquery-circliful/js/jquery.circliful.min.js"></script>
+    <!-- Plugins Js -->
+    <script src="/Admin/plugins/switchery/switchery.min.js"></script>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <form asp-area="Admin" asp-controller="Skills" asp-action="EditPersonalSkills" method="post">
+                    <h4 class="header-title m-t-0 m-b-30">مهارت های فردی من</h4>
+                    <div class="row">
+                        @foreach (var personalSkill in Model.PersonalSkills)
+                        {
+                            <input asp-for="PersonalSkills[i].Id" type="hidden" />
+                            <input asp-for="PersonalSkills[i].Title" type="hidden" />
+                            <div class="col-sm-6 col-lg-3 text-center">
+                                <div class="p-20">
+                                    <input data-plugin="knob" data-width="150" data-height="150"
+                                           data-angleOffset="90" data-linecap="round" data-fgColor="#@colors[i]"
+                                           value="@personalSkill.Progress" asp-for="PersonalSkills[i].Progress" type="text" />
+                                    <h5 class="font-600 text-muted">@personalSkill.Title</h5>
+                                </div>
+                            </div><!-- end col-->
+                            i++;
+                            if (i >= colors.Count)
+                            {
+                                i = 0;
+                            }
+                        }
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-info" value="ذخیره" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card-box">
+                <div class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                        <i class="zmdi zmdi-more-vert"></i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-toggle="modal" data-target="#add-technical-skill-modal">افزودن</a></li>
+                        <li><a data-toggle="modal" data-target="#edit-technical-skill-modal">ویرایش</a></li>
+                        <li class="divider"></li>
+                        <li><a data-toggle="modal" data-target="#delete-technical-skill-modal">حذف</a></li>
+                    </ul>
+                </div>
+
+                <h4 class="header-title m-t-0 m-b-30">مهارت های فنی من</h4>
+                @foreach (var technicalSkill in Model.TechnicalSkills)
+                {
+                    <p class="font-600 m-b-5">@technicalSkill.Title <span class="text-@classes[j] pull-right">@technicalSkill.Progress%</span></p>
+                    <div class="progress progress-bar-@classes[j]-alt progress-sm m-b-20">
+                        <div class="progress-bar progress-bar-@classes[j] progress-animated wow animated animated" role="progressbar" aria-valuenow="@technicalSkill.Progress" aria-valuemin="0" aria-valuemax="100" style="width: @technicalSkill.Progress%; visibility: visible; animation-name: animationProgress;">
+                        </div><!-- /.progress-bar .progress-bar-danger -->
+                    </div><!-- /.progress .no-rounded -->
+                    j++;
+                    if (j >= classes.Count)
+                    {
+                        j = 0;
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="add-technical-skill-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-area="Admin" asp-controller="Skills" asp-action="AddTechnicalSkill">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">اضافه کردن مهارت فنی</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="technical-skin-name" class="control-label">عنوان مهارت</label>
+                                <input id="technical-skin-name" name="technicalSkillName" type="text" class="form-control" placeholder="نام مهارت">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="technical-skin-progress" class="control-label">درصد فراگیری</label>
+                                <input id="technical-skin-progress" name="technicalSkillProgress" type="number" class="form-control" placeholder="مثال: 90">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<div id="edit-technical-skill-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-area="Admin" asp-controller="Skills" asp-action="EditTechnicalSkills">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">ویرایش مهارت های فنی</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        @foreach (var technicalSkill in Model.TechnicalSkills)
+                        {
+                            <input asp-for="TechnicalSkills[k].Id" type="hidden" />
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="technical-skin-name" class="control-label">عنوان مهارت</label>
+                                    <input asp-for="TechnicalSkills[k].Title"
+                                           type="text" class="form-control" placeholder="نام مهارت"
+                                           value="@technicalSkill.Title">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="technical-skin-progress" class="control-label">درصد فراگیری</label>
+                                    <input asp-for="TechnicalSkills[k].Progress"
+                                           type="number" class="form-control" placeholder="مثال: 90"
+                                           min="0" max="100"
+                                           value="@technicalSkill.Progress">
+                                </div>
+                            </div>
+                            k++;
+                        }
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div><!-- /.modal -->
+
+<div id="delete-technical-skill-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-area="Admin" asp-controller="Skills" asp-action="DeleteTechnicalSkills">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">حذف مهارت های فنی</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <table class="table table table-hover m-0">
+                            <thead>
+                                <tr>
+                                    <th>عنوان مهارت</th>
+                                    <th>درصد فراگیری</th>
+                                    <th>علامت گذاری</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var technicalSkill in Model.TechnicalSkills)
+                                {
+                                    <tr>
+                                        <td>@technicalSkill.Title</td>
+                                        <td>@technicalSkill.Progress</td>
+                                        <td><input name="flags[@technicalSkill.Id]" value="true" type="checkbox" data-plugin="switchery" data-color="#ff8acc" data-size="small" /></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+                    <button type="submit" class="btn btn-danger waves-effect waves-light">حذف</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div><!-- /.modal -->
