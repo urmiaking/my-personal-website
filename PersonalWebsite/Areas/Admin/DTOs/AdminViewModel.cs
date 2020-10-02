@@ -75,4 +75,23 @@ namespace PersonalWebsite.Areas.Admin.DTOs
         public List<TechnicalSkill> TechnicalSkills { get; set; }
         public List<PersonalSkill> PersonalSkills { get; set; }
     }
+
+    public class PortfolioViewModel
+    {
+        public PortfolioViewModel()
+        {
+            WorkSample = new WorkSample();
+            WorkSamples = new List<WorkSample>();
+        }
+
+        public PortfolioViewModel(WorkSample workSample, List<WorkSample> workSamples)
+        {
+            WorkSample = workSample ?? new WorkSample();
+            WorkSamples = workSamples ?? new List<WorkSample>();
+        }
+
+        public WorkSample WorkSample { get; set; }
+
+        public List<WorkSample> WorkSamples { get; set; }
+    }
 }
