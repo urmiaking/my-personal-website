@@ -60,6 +60,8 @@ namespace PersonalWebsite.Data
 
         public virtual DbSet<Detail> Details { get; set; }
 
+        public virtual DbSet<Category> Categories { get; set; }
+
         #endregion
 
         #region Site Admin

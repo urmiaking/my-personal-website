@@ -80,18 +80,35 @@ namespace PersonalWebsite.Areas.Admin.DTOs
     {
         public PortfolioViewModel()
         {
-            WorkSample = new WorkSample();
             WorkSamples = new List<WorkSample>();
         }
 
-        public PortfolioViewModel(WorkSample workSample, List<WorkSample> workSamples)
+        public PortfolioViewModel(List<WorkSample> workSamples)
         {
-            WorkSample = workSample ?? new WorkSample();
             WorkSamples = workSamples ?? new List<WorkSample>();
         }
 
-        public WorkSample WorkSample { get; set; }
-
         public List<WorkSample> WorkSamples { get; set; }
+    }
+
+    public class WorkSampleImageViewModel
+    {
+        public WorkSampleImageViewModel(string imageName, bool sizeLimitReached, bool savedSuccessfully)
+        {
+            ImageName = imageName;
+            SizeLimitReached = sizeLimitReached;
+            SavedSuccessfully = savedSuccessfully;
+        }
+
+        public WorkSampleImageViewModel()
+        {
+            ImageName = null;
+            SizeLimitReached = false;
+            SavedSuccessfully = false;
+        }
+
+        public string ImageName { get; set; }
+        public bool SizeLimitReached { get; set; }
+        public bool SavedSuccessfully { get; set; }
     }
 }

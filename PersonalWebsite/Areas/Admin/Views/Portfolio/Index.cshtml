@@ -5,9 +5,19 @@
     var i = 0;
 }
 
+@section Head
+{
+    <!-- Sweet Alert css -->
+    <link href="/Admin/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css" />
+    <script src="/Admin/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+}
+
 <div class="container">
     <div class="text-center">
-        <button class="btn btn-rounded btn-info btn-block" data-toggle="modal" data-target="#add-portfolio-modal"><i class="fa fa-pencil">&nbsp;</i> افزودن نمونه کار جدید </button>
+        <a asp-area="Admin" asp-controller="Portfolio" asp-action="Add"
+           class="btn btn-rounded btn-info btn-block">
+            <i class="fa fa-pencil">&nbsp;</i> افزودن نمونه کار جدید
+        </a>
         <br />
     </div>
     <div class="row">
@@ -22,7 +32,7 @@
                                 <th>
                                     عنوان
                                 </th>
-                                <th>دسته بندی</th>
+                                <th>تکنولوژی</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -31,18 +41,45 @@
                             @foreach (var item in Model.WorkSamples)
                             {
                                 var deleteButtonId = "delete-btn-" + i;
-                                var editButtonId = "edit-btn-" + i;
-                                var editModalId = "edit-modal-" + i;
+
                                 <tr id="row-@i">
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Title)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Detail.Title)
+                                        @{
+                                            var groups = "";
+                                            foreach (var category in item.WorkSampleCategories)
+                                            {
+                                                switch (category.Category.Group)
+                                                {
+                                                    case Group.MicroService:
+                                                        groups += "مایکروسرویس ";
+                                                        break;
+                                                    case Group.Java:
+                                                        groups += "جاوا ";
+                                                        break;
+                                                    case Group.DotNet:
+                                                        groups += "دات نت ";
+                                                        break;
+                                                    case Group.Python:
+                                                        groups += "پایتون ";
+                                                        break;
+                                                    default:
+                                                        groups = "";
+                                                        break;
+                                                }
+                                            }
+                                            @groups
+                                        }
                                     </td>
                                     <td>
-                                        <a id="@editButtonId" class="btn btn-sm btn-success" data-toggle="modal" data-target="#@editModalId">ویرایش</a> |
-
+                                        <a asp-area="Admin" asp-controller="Portfolio"
+                                           asp-action="Details" asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-success">مشاهده</a> |
+                                        <a asp-area="Admin" asp-controller="Portfolio"
+                                           asp-action="Edit" asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-info">ویرایش</a> |
                                         <a id="@deleteButtonId" class="btn btn-sm btn-danger">حذف</a>
                                     </td>
                                 </tr>
@@ -94,34 +131,6 @@
                                             });
                                     });
                                 </script>
-                                <div id="@editModalId" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form method="post" asp-area="Admin" asp-controller="Portfolio" asp-action="Edit">
-                                                <input type="hidden" value="@item.Id" name="id" />
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    <h4 class="modal-title">ویرایش نمونه کار</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="categoryNameEdit" class="control-label">عنوان</label>
-                                                                <input type="text" class="form-control" id="categoryNameEdit" value="@item.Title" required="" name="categoryName" placeholder="نام دسته">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
-                                                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
                                 i++;
                             }
                         </tbody>
@@ -138,32 +147,3 @@
         </div>
     </div>
 </div>
-
-
-<div id="add-portfolio-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" asp-area="Admin" asp-controller="Portfolio" asp-action="Add">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">افزودن نمونه کار</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label asp-for="WorkSample.Title" class="control-label"></label>
-                                <input asp-for="WorkSample.Title" type="text" class="form-control" placeholder="عنوان">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">ذخیره</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div><!-- /.modal -->

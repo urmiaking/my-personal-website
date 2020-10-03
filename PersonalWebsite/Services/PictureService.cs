@@ -18,6 +18,8 @@ namespace PersonalWebsite.Services
             _db = db;
         }
 
+        #region Blog
+
         public async Task<string> EditAboutMeImageAsync(IFormFile imageFile, string oldImageName)
         {
             if (imageFile.Length > 500000)
@@ -108,7 +110,7 @@ namespace PersonalWebsite.Services
                 await using var stream = new FileStream(savePath, FileMode.Create);
                 await imageFile.CopyToAsync(stream);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 blogPictureResult.SavedSuccessfully = false;
                 return blogPictureResult;
@@ -118,5 +120,67 @@ namespace PersonalWebsite.Services
             blogPictureResult.SavedSuccessfully = true;
             return blogPictureResult;
         }
+
+        #endregion
+
+        #region Portfolio
+
+        public async Task<WorkSampleImageViewModel> SaveWorkSampleImageAsync(IFormFile imageFile)
+        {
+            var result = new WorkSampleImageViewModel();
+            if (imageFile == null)
+            {
+                return result;
+            }
+
+            if (imageFile.Length > 500000)
+            {
+                result.SizeLimitReached = true;
+                result.ImageName = "dummy string";
+                return result;
+            }
+
+            result.ImageName = Guid.NewGuid() + Path.GetExtension(imageFile.FileName);
+
+            try
+            {
+                result.ImageName = Guid.NewGuid() + Path.GetExtension(imageFile.FileName);
+                var savePath = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot/images/portfolio",
+                    result.ImageName
+                );
+                await using var stream = new FileStream(savePath, FileMode.Create);
+                await imageFile.CopyToAsync(stream);
+            }
+            catch (Exception)
+            {
+                result.SavedSuccessfully = false;
+                return result;
+                //_logger.LogError($"Image Upload incomplete. error = {ex.Message}");
+            }
+
+            result.SavedSuccessfully = true;
+            return result;
+        }
+
+        public bool RemovePortfolioImage(string imageUrl)
+        {
+            if (string.IsNullOrEmpty(imageUrl))
+            {
+                return false;
+            }
+
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/portfolio", imageUrl);
+
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
     }
 }

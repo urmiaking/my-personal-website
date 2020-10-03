@@ -1,0 +1,84 @@
+﻿@model WorkSample
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "_MainLayout";
+    var groups = "";
+
+    foreach (var category in Model.WorkSampleCategories)
+    {
+        switch (category.Category.Group)
+        {
+            case Group.MicroService:
+                groups += "مایکروسرویس,";
+                break;
+            case Group.Java:
+                groups += "جاوا,";
+                break;
+            case Group.DotNet:
+                groups += "دات نت,";
+                break;
+            case Group.Python:
+                groups += "پایتون,";
+                break;
+            default:
+                groups = "";
+                break;
+        }
+    }
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bg-picture card-box">
+                <div class="profile-info-name">
+
+                    <img src="/images/portfolio/@Model.Image" class="img-thumbnail" alt="profile-image">
+
+                    <div class="profile-info-detail">
+                        <h3 class="m-t-0 m-b-5">@Model.Detail.Title</h3>
+                        <p class="text-muted m-b-20">
+                            @foreach (var group in groups.Split(","))
+                            {
+                                <span class="label label-info">@group</span>
+                            }
+
+                        </p>
+                        <p>@Model.Detail.Description</p>
+
+                        <hr />
+                        <h4 class="m-t-0 m-b-0">تکنولوژی های به کار رفته</h4>
+                        <br />
+                        <p class="text-muted m-b-20 ">
+                            @foreach (var technology in Model.Detail.Technologies.Split(","))
+                            {
+                                <span class="label label-info">@technology</span>
+                            }
+
+                        </p>
+                        <hr />
+                        
+                        @if (!string.IsNullOrEmpty(Model.Detail.Image))
+                        {
+                            <h4 class="m-t-0 m-b-0">پیش نمایش</h4><br />
+                            <img src="/images/portfolio/@Model.Detail.Image" style="width: 100%" class="img-thumbnail" />
+                            <p class="text-center">@Model.Detail.ImageDescription</p>
+                            <hr />
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(Model.Detail.Link))
+                        {
+                            <div class="button-list m-t-20">
+                                <a href="@Model.Detail.Link" class="btn btn-github btn-sm waves-effect waves-light">
+                                    <i class="fa fa-github"></i> مشاهده در گیت هاب
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
