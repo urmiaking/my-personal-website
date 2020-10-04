@@ -162,5 +162,71 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
             return StatusCode(200);
         }
+
+        [Route("[controller]/[action]/{id}")]
+        public async Task<IActionResult> Edit(int id = 0)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var workSample = await _db.WorkSamples
+                .Include(a => a.Detail)
+                .Include(a => a.WorkSampleCategories)
+                .ThenInclude(a => a.Category)
+                .FirstOrDefaultAsync(a => a.Id.Equals(id));
+
+            if (workSample is null)
+            {
+                return NotFound();
+            }
+
+            return View(workSample);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("[controller]/[action]/{id}")]
+        public async Task<IActionResult> Edit(WorkSample workSample, IFormFile imageFile, IFormFile innerImageFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(workSample);
+            }
+
+            if (imageFile != null)
+            {
+                var isSuccessful = _pictureService.RemovePortfolioImage(workSample.Image);
+                if (isSuccessful)
+                {
+                    var result = await _pictureService.SaveWorkSampleImageAsync(imageFile);
+                    if (result.SavedSuccessfully)
+                    {
+                        workSample.Image = result.ImageName;
+                    }
+                }
+            }
+
+            if (innerImageFile != null)
+            {
+                var isSuccessful = _pictureService.RemovePortfolioImage(workSample.Detail.Image);
+                if (isSuccessful)
+                {
+                    var result = await _pictureService.SaveWorkSampleImageAsync(innerImageFile);
+                    if (result.SavedSuccessfully)
+                    {
+                        workSample.Detail.Image = result.ImageName;
+                    }
+                }
+            }
+
+            _db.WorkSamples.Update(workSample);
+            await _db.SaveChangesAsync();
+
+            TempData["Success"] = "نمونه کار با موفقیت ویرایش شد";
+            return RedirectToAction("Index");
+        }
     }
 }
