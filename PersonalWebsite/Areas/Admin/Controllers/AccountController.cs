@@ -53,7 +53,7 @@ namespace PersonalWebsite.Areas.Admin.Controllers
                 return View(loginForm);
             }
 
-            TempData["Success"] = "مدیر عزیر، خوش آمدید!";
+            TempData["Success"] = "مدیر عزیز، خوش آمدید!";
 
             var decodedUrl = "";
             if (!string.IsNullOrEmpty(returnUrl))
