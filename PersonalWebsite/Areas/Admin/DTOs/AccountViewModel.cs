@@ -51,4 +51,28 @@ namespace PersonalWebsite.Areas.Admin.DTOs
         [Compare("Password", ErrorMessage = "{0} با {1} مطابقت ندارد")]
         public string RepeatPassword { get; set; }
     }
+
+    public class ChangeProfileViewModel
+    {
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [EmailAddress(ErrorMessage = "{0} معتبر نیست")]
+        public string Email { get; set; }
+
+        [Display(Name = "رمز عبور فعلی")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "{0} حداقل باید {1} کاراکتر باشد")]
+        public string CurrentPassword { get; set; }
+
+        [Display(Name = "رمز عبور جدید")]
+        [MinLength(6, ErrorMessage = "{0} حداقل باید {1} کاراکتر باشد")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Display(Name = "تکرار رمز عبور جدید")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "{0} حداقل باید {1} کاراکتر باشد")]
+        [Compare("Password", ErrorMessage = "{0} با {1} همخوانی ندارد.")]
+        public string RepeatPassword { get; set; }
+    }
 }

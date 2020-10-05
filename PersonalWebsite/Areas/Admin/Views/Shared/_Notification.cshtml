@@ -1,22 +1,41 @@
-﻿<div class="side-bar right-bar">
+﻿
+@inject AppDbContext Db
+
+<div class="side-bar right-bar">
     <a href="javascript:void(0);" class="right-bar-toggle">
         <i class="zmdi zmdi-close-circle-o"></i>
     </a>
     <h4 class="">اعلانات</h4>
     <div class="notification-list nicescroll">
         <ul class="list-group list-no-border user-list">
-            <li class="list-group-item">
-                <a href="#" class="user-list-item">
-                    <div class="avatar">
-                        <img src="/Admin/images/users/avatar-2.jpg" alt="">
+            @{
+                if (Db.ContactForms.Any())
+                {
+                    foreach (var item in Db.ContactForms)
+                    {
+                        <li class="list-group-item">
+                            <a asp-area="Admin" asp-controller="Message" asp-action="Index" class="user-list-item">
+                                <div class="icon bg-pink">
+                                    <i class="zmdi zmdi-comment"></i>
+                                </div>
+                                <div class="user-desc">
+                                    <span class="name">پیام جدید</span>
+                                    <span class="desc">بازخوردی از @item.FirstName @item.LastName</span>
+                                    <span class="time">@item.DateTime.ElapsedTimeNotification()</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <div class="text-center">
+                        هیچ اعلانی وجود ندارد
                     </div>
-                    <div class="user-desc">
-                        <span class="name">کاربر شماره یک</span>
-                        <span class="desc">متن کاربر شماره یک</span>
-                        <span class="time">2 ساعت قبل</span>
-                    </div>
-                </a>
-            </li>
+                }
+            }
+
+
         </ul>
     </div>
 </div>

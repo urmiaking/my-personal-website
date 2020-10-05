@@ -50,5 +50,29 @@ namespace PersonalWebsite.Controllers
             };
             return View(indexViewModel);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SendMessage(string firstName, string lastName, string email, string message)
+        {
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(message))
+            {
+                return Content("خطا");
+            }
+
+            var contactForm = new ContactForm
+            {
+                EmailAddress = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Message = message,
+                DateTime = DateTime.Now
+            };
+
+            await _db.ContactForms.AddAsync(contactForm);
+            await _db.SaveChangesAsync();
+
+            return Content("success");
+        }
     }
 }

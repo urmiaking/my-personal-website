@@ -10,8 +10,8 @@ using PersonalWebsite.Data;
 namespace PersonalWebsite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200922215255_AddBlogsData")]
-    partial class AddBlogsData
+    [Migration("20201004210409_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,7 +98,9 @@ namespace PersonalWebsite.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -128,7 +130,7 @@ namespace PersonalWebsite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -237,6 +239,7 @@ namespace PersonalWebsite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
@@ -249,9 +252,11 @@ namespace PersonalWebsite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Technologies")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WorkSampleId")
@@ -381,7 +386,7 @@ namespace PersonalWebsite.Migrations
                             Id = 2,
                             CollegeName = "دانشگاه ارومیه",
                             DegreeTitle = "کارشناسی مهندسی کامپیوتر",
-                            Description = "دانشگاه ارومیه، راه رسیدن به جایگاهی که هم اکنون در آن قرار دارم را هموار کرد. به لطف مدد الهی، دوران کارشناسی خود را با موفقیت گذرانده و موفق به کسب مقام اول با معدل ۱۸.۲۱ در رشته مهندسی کامپیوتر شده ام.",
+                            Description = "دانشگاه ارومیه، راه رسیدن به جایگاهی که هم اکنون در آن قرار دارم را هموار کرد. به لطف مدد الهی، دوران کارشناسی خود را با موفقیت گذرانده و موفق به کسب مقام اول با معدل 18.09 در رشته مهندسی کامپیوتر شده ام.",
                             Duration = "۱۳۹۵-۱۳۹۹"
                         },
                         new
@@ -506,8 +511,8 @@ namespace PersonalWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            Progress = 80,
-                            Title = "ارتباطات خوب"
+                            Progress = 70,
+                            Title = "زبان انگلیسی"
                         },
                         new
                         {
@@ -695,6 +700,12 @@ namespace PersonalWebsite.Migrations
                             Id = 16,
                             AboutMeId = 1,
                             Title = "Python"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AboutMeId = 1,
+                            Title = "ML.NET"
                         });
                 });
 
@@ -762,63 +773,35 @@ namespace PersonalWebsite.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<string>("ShortDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Tags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Blogs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Author = "مسعود خدادادی",
-                            CategoryId = 1,
-                            DateTime = new DateTime(2020, 9, 23, 1, 22, 54, 786, DateTimeKind.Local).AddTicks(2988),
-                            Description = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
-                            ImageUrl = "b-1.png",
-                            ShortDescription = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
-                            Tags = "تست،تست دو، تست سه",
-                            Title = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Author = "مسعود خدادادی",
-                            CategoryId = 2,
-                            DateTime = new DateTime(2020, 9, 23, 1, 22, 54, 786, DateTimeKind.Local).AddTicks(5960),
-                            Description = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
-                            ImageUrl = "b-1.png",
-                            ShortDescription = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
-                            Tags = "تست،تست دو، تست سه",
-                            Title = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Author = "مسعود خدادادی",
-                            CategoryId = 3,
-                            DateTime = new DateTime(2020, 9, 23, 1, 22, 54, 786, DateTimeKind.Local).AddTicks(6052),
-                            Description = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
-                            ImageUrl = "b-1.png",
-                            ShortDescription = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
-                            Tags = "تست،تست دو، تست سه",
-                            Title = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ"
-                        });
                 });
 
             modelBuilder.Entity("PersonalWebsite.Models.Weblog.BlogCategory", b =>
@@ -829,28 +812,13 @@ namespace PersonalWebsite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.ToTable("BlogCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "دات نت"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "برنامه نویسی"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "تکنولوژی"
-                        });
                 });
 
             modelBuilder.Entity("PersonalWebsite.Models.WorkSample", b =>
@@ -867,6 +835,7 @@ namespace PersonalWebsite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -877,49 +846,49 @@ namespace PersonalWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 780, DateTimeKind.Local).AddTicks(1765),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 132, DateTimeKind.Local).AddTicks(2477),
                             Image = "clinic.jpg",
                             Title = "کلینیک فوق تخصصی بهار"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 783, DateTimeKind.Local).AddTicks(6555),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3097),
                             Image = "docker.png",
                             Title = "وبسایت خبری"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 783, DateTimeKind.Local).AddTicks(6617),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3176),
                             Image = "airlink-smart-hub.jpg",
                             Title = "سرور اسکای نیک"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 783, DateTimeKind.Local).AddTicks(6623),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3183),
                             Image = "machine-learning.png",
                             Title = "یادگیری ماشین"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 783, DateTimeKind.Local).AddTicks(6627),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3187),
                             Image = "corona.png",
                             Title = "وبسایت مدیریت آمار کرونا"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 783, DateTimeKind.Local).AddTicks(6631),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3191),
                             Image = "toplearn.png",
                             Title = "وبسایت تاپ لرن"
                         },
                         new
                         {
                             Id = 7,
-                            CreateDateTime = new DateTime(2020, 9, 23, 1, 22, 54, 783, DateTimeKind.Local).AddTicks(6636),
+                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3195),
                             Image = "university.jpg",
                             Title = "سیستم دانشگاه"
                         });

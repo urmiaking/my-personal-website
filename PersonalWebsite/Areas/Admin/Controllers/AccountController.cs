@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PersonalWebsite.Areas.Admin.DTOs;
+using PersonalWebsite.Data;
 using PersonalWebsite.Services;
+using PersonalWebsite.Utilities;
 
 namespace PersonalWebsite.Areas.Admin.Controllers
 {
@@ -14,9 +18,12 @@ namespace PersonalWebsite.Areas.Admin.Controllers
     {
         private readonly IAccountService _accountService;
 
-        public AccountController(IAccountService accountService)
+        private readonly AppDbContext _db;
+
+        public AccountController(IAccountService accountService, AppDbContext appDbContext)
         {
             _accountService = accountService;
+            _db = appDbContext;
         }
 
         #region Login
@@ -154,6 +161,64 @@ namespace PersonalWebsite.Areas.Admin.Controllers
 
             TempData["Success"] = "رمز عبور شما با موفقیت تغییر یافت!";
             return RedirectToAction("Login");
+        }
+
+        #endregion
+
+        #region Profile
+
+        [Authorize]
+        [Route("[action]")]
+        public async Task<IActionResult> EditProfile()
+        {
+            var user = await _db.SiteAdmins
+                .FirstOrDefaultAsync(a =>
+                    a.Email.Equals(User.Identity.Name));
+
+            var profileViewModel = new ChangeProfileViewModel
+            {
+                Email = user.Email
+            };
+
+            return View(profileViewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("[action]")]
+        public async Task<IActionResult> EditProfile(ChangeProfileViewModel changeProfileViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(changeProfileViewModel);
+            }
+
+            var user = await _db.SiteAdmins.FirstOrDefaultAsync(a => a.Email.Equals(User.Identity.Name));
+
+            user.Email = changeProfileViewModel.Email;
+
+            if (!string.IsNullOrEmpty(changeProfileViewModel.CurrentPassword) && !string.IsNullOrEmpty(changeProfileViewModel.Password))
+            {
+                var currentPassword = PasswordHelper.Hash(changeProfileViewModel.CurrentPassword);
+                if (user.Password.Equals(currentPassword))
+                {
+                    user.Password = PasswordHelper.Hash(changeProfileViewModel.Password);
+                }
+                else
+                {
+                    TempData["Error"] = "رمز عبور فعلی وارد شده صحیح نمی باشد";
+                    return RedirectToAction("EditProfile");
+                }
+            }
+
+            _db.SiteAdmins.Update(user);
+            await _db.SaveChangesAsync();
+
+            await _accountService.LogoutAsync();
+
+            TempData["Success"] = "پروفایل شما با موفقیت ویرایش یافت. لطفا دوباره وارد شوید";
+            return RedirectToAction("EditProfile");
         }
 
         #endregion

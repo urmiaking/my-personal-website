@@ -12,7 +12,7 @@ namespace PersonalWebsite.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
                     Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -21,7 +21,20 @@ namespace PersonalWebsite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "BlogCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -30,7 +43,21 @@ namespace PersonalWebsite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientVisits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IpAddress = table.Column<string>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientVisits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,6 +123,23 @@ namespace PersonalWebsite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MailServers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServerAddress = table.Column<string>(nullable: true),
+                    HostAddress = table.Column<string>(nullable: true),
+                    Port = table.Column<int>(nullable: false),
+                    Password = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MailServers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PersonalSkills",
                 columns: table => new
                 {
@@ -107,6 +151,22 @@ namespace PersonalWebsite.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersonalSkills", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SiteAdmins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    ResetPasswordCode = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SiteAdmins", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,7 +202,7 @@ namespace PersonalWebsite.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
                     Image = table.Column<string>(nullable: true),
                     CreateDateTime = table.Column<DateTime>(nullable: false)
                 },
@@ -167,6 +227,33 @@ namespace PersonalWebsite.Migrations
                         name: "FK_Technologies_AboutMe_AboutMeId",
                         column: x => x.AboutMeId,
                         principalTable: "AboutMe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Blogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    ShortDescription = table.Column<string>(maxLength: 500, nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Author = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(maxLength: 200, nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    Tags = table.Column<string>(nullable: false),
+                    ViewCount = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Blogs_BlogCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "BlogCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -201,9 +288,9 @@ namespace PersonalWebsite.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Technologies = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Technologies = table.Column<string>(nullable: false),
                     Image = table.Column<string>(nullable: true),
                     ImageDescription = table.Column<string>(nullable: true),
                     Link = table.Column<string>(nullable: true),
@@ -231,9 +318,9 @@ namespace PersonalWebsite.Migrations
                 {
                     table.PrimaryKey("PK_WorkSampleCategories", x => new { x.WorkSampleId, x.CategoryId });
                     table.ForeignKey(
-                        name: "FK_WorkSampleCategories_Category_CategoryId",
+                        name: "FK_WorkSampleCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -250,7 +337,7 @@ namespace PersonalWebsite.Migrations
                 values: new object[] { 1, "من، مسعود خدادادی، فارغ التحصیل رشته مهندسی کامپیوتر از دانشگاه ارومیه هستم. به طور حرفه ای در زمینه برنامه نویسی سمت سرور با زبان سی شارپ فعالیت می کنم و برنامه های تحت وب با پلتفرم ASP.Net Core توسعه می دهم. من همچنین در زمینه های زیر تجربه و مهارت دارم:", "dotnet.jpg" });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Group" },
                 values: new object[,]
                 {
@@ -270,9 +357,9 @@ namespace PersonalWebsite.Migrations
                 columns: new[] { "Id", "CollegeName", "DegreeTitle", "Description", "Duration" },
                 values: new object[,]
                 {
-                    { 2, "دانشگاه ارومیه", "کارشناسی مهندسی کامپیوتر", "دانشگاه ارومیه، راه رسیدن به جایگاهی که هم اکنون در آن قرار دارم را هموار کرد. به لطف مدد الهی، دوران کارشناسی خود را با موفقیت گذرانده و موفق به کسب مقام اول با معدل ۱۸.۲۱ در رشته مهندسی کامپیوتر شده ام.", "۱۳۹۵-۱۳۹۹" },
-                    { 3, "دانشگاه ارومیه", "کارشناسی ارشد مهندسی نرم افزار", "جهت تکمیل علم و دانش خود، قصد ادامه تحصیل در رشته مهندسی نرم افزار در دانشگاه ارومیه را دارم. امسال در کنکور ارشد شرکت کرده ام و انشالله نتیجه آن به زودی اعلام میگردد.", "۱۳۹۹-..." },
-                    { 1, "دبیرستان شاهد", "دیپلم ریاضی و فیزیک", "دریچه های علم در دبیرستان شاهد شهید آهندوست به روی من گشوده شد. من در این دبیرستان رشته ریاضی و فیزیک را گذرانده و مدرک دیپلم خود را با معدل ۱۹ کسب کرده ام.", "۱۳۹۱-۱۳۹۵" }
+                    { 1, "دبیرستان شاهد", "دیپلم ریاضی و فیزیک", "دریچه های علم در دبیرستان شاهد شهید آهندوست به روی من گشوده شد. من در این دبیرستان رشته ریاضی و فیزیک را گذرانده و مدرک دیپلم خود را با معدل ۱۹ کسب کرده ام.", "۱۳۹۱-۱۳۹۵" },
+                    { 2, "دانشگاه ارومیه", "کارشناسی مهندسی کامپیوتر", "دانشگاه ارومیه، راه رسیدن به جایگاهی که هم اکنون در آن قرار دارم را هموار کرد. به لطف مدد الهی، دوران کارشناسی خود را با موفقیت گذرانده و موفق به کسب مقام اول با معدل 18.09 در رشته مهندسی کامپیوتر شده ام.", "۱۳۹۵-۱۳۹۹" },
+                    { 3, "دانشگاه ارومیه", "کارشناسی ارشد مهندسی نرم افزار", "جهت تکمیل علم و دانش خود، قصد ادامه تحصیل در رشته مهندسی نرم افزار در دانشگاه ارومیه را دارم. امسال در کنکور ارشد شرکت کرده ام و انشالله نتیجه آن به زودی اعلام میگردد.", "۱۳۹۹-..." }
                 });
 
             migrationBuilder.InsertData(
@@ -286,26 +373,36 @@ namespace PersonalWebsite.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "MailServers",
+                columns: new[] { "Id", "HostAddress", "Password", "Port", "ServerAddress", "Type" },
+                values: new object[] { 1, "smtp.gmail.com", "MASOUD7559", 587, "masoud.xpress@gmail.com", null });
+
+            migrationBuilder.InsertData(
                 table: "PersonalSkills",
                 columns: new[] { "Id", "Progress", "Title" },
                 values: new object[,]
                 {
-                    { 1, 80, "ارتباطات خوب" },
-                    { 2, 95, "برنامه ریزی منظم" },
                     { 3, 90, "مدیریت پروژه" },
-                    { 4, 70, "کار تیمی" }
+                    { 2, 95, "برنامه ریزی منظم" },
+                    { 4, 70, "کار تیمی" },
+                    { 1, 70, "زبان انگلیسی" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "SiteAdmins",
+                columns: new[] { "Id", "Email", "FullName", "Password", "ResetPasswordCode" },
+                values: new object[] { 1, "masoud.xpress@gmail.com", "مسعود خدادادی", "f1ac294f56ceb706e90dd1719934c3ae444431483a2857bb001289f7d5acc0bb", "" });
 
             migrationBuilder.InsertData(
                 table: "TechnicalSkills",
                 columns: new[] { "Id", "Progress", "Title" },
                 values: new object[,]
                 {
-                    { 5, 46, "Javascript" },
-                    { 4, 53, "Java" },
                     { 1, 86, "#C" },
                     { 2, 74, "NET." },
-                    { 3, 90, "NET Core." }
+                    { 3, 90, "NET Core." },
+                    { 4, 53, "Java" },
+                    { 5, 46, "Javascript" }
                 });
 
             migrationBuilder.InsertData(
@@ -313,12 +410,12 @@ namespace PersonalWebsite.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Java, Socket programming" },
-                    { 2, "HTML, CSS, JS, PHP, MySQL" },
-                    { 3, "ASP.NET Core 3.1" },
-                    { 4, "Docker & Kubernetes" },
+                    { 6, "Docker, Kubernetes, Microservice architecture" },
                     { 5, "ASP.NET Core 3.1 MVC and Web API" },
-                    { 6, "Docker, Kubernetes, Microservice architecture" }
+                    { 4, "Docker & Kubernetes" },
+                    { 3, "ASP.NET Core 3.1" },
+                    { 1, "Java, Socket programming" },
+                    { 2, "HTML, CSS, JS, PHP, MySQL" }
                 });
 
             migrationBuilder.InsertData(
@@ -326,13 +423,13 @@ namespace PersonalWebsite.Migrations
                 columns: new[] { "Id", "CreateDateTime", "Image", "Title" },
                 values: new object[,]
                 {
-                    { 6, new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9067), "toplearn.png", "وبسایت تاپ لرن" },
-                    { 1, new DateTime(2020, 8, 26, 8, 11, 28, 643, DateTimeKind.Local).AddTicks(1290), "clinic.jpg", "کلینیک فوق تخصصی بهار" },
-                    { 2, new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(8988), "docker.png", "وبسایت خبری" },
-                    { 3, new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9050), "airlink-smart-hub.jpg", "سرور اسکای نیک" },
-                    { 4, new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9058), "machine-learning.png", "یادگیری ماشین" },
-                    { 5, new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9063), "corona.png", "وبسایت مدیریت آمار کرونا" },
-                    { 7, new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9071), "university.jpg", "سیستم دانشگاه" }
+                    { 6, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3191), "toplearn.png", "وبسایت تاپ لرن" },
+                    { 1, new DateTime(2020, 10, 5, 0, 34, 9, 132, DateTimeKind.Local).AddTicks(2477), "clinic.jpg", "کلینیک فوق تخصصی بهار" },
+                    { 2, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3097), "docker.png", "وبسایت خبری" },
+                    { 3, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3176), "airlink-smart-hub.jpg", "سرور اسکای نیک" },
+                    { 4, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3183), "machine-learning.png", "یادگیری ماشین" },
+                    { 5, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3187), "corona.png", "وبسایت مدیریت آمار کرونا" },
+                    { 7, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3195), "university.jpg", "سیستم دانشگاه" }
                 });
 
             migrationBuilder.InsertData(
@@ -367,6 +464,7 @@ namespace PersonalWebsite.Migrations
                 columns: new[] { "Id", "AboutMeId", "Title" },
                 values: new object[,]
                 {
+                    { 17, 1, "ML.NET" },
                     { 16, 1, "Python" },
                     { 1, 1, "NET." },
                     { 14, 1, "++C" },
@@ -402,6 +500,11 @@ namespace PersonalWebsite.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Blogs_CategoryId",
+                table: "Blogs",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Details_WorkSampleId",
                 table: "Details",
                 column: "WorkSampleId",
@@ -426,6 +529,12 @@ namespace PersonalWebsite.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Blogs");
+
+            migrationBuilder.DropTable(
+                name: "ClientVisits");
+
+            migrationBuilder.DropTable(
                 name: "ContactForms");
 
             migrationBuilder.DropTable(
@@ -441,7 +550,13 @@ namespace PersonalWebsite.Migrations
                 name: "ExperienceTool");
 
             migrationBuilder.DropTable(
+                name: "MailServers");
+
+            migrationBuilder.DropTable(
                 name: "PersonalSkills");
+
+            migrationBuilder.DropTable(
+                name: "SiteAdmins");
 
             migrationBuilder.DropTable(
                 name: "TechnicalSkills");
@@ -453,6 +568,9 @@ namespace PersonalWebsite.Migrations
                 name: "WorkSampleCategories");
 
             migrationBuilder.DropTable(
+                name: "BlogCategories");
+
+            migrationBuilder.DropTable(
                 name: "Experiences");
 
             migrationBuilder.DropTable(
@@ -462,7 +580,7 @@ namespace PersonalWebsite.Migrations
                 name: "AboutMe");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "WorkSamples");

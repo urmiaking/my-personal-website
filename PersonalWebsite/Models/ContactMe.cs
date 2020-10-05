@@ -39,5 +39,8 @@ namespace PersonalWebsite.Models
         [Display(Name = "پیغام")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string Message { get; set; }
+
+        [Display(Name = "تاریخ ارسال")]
+        public DateTime DateTime { get; set; }
     }
 }

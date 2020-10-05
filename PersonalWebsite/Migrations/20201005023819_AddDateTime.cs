@@ -3,133 +3,120 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PersonalWebsite.Migrations
 {
-    public partial class AddSiteAdmin : Migration
+    public partial class AddDateTime : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "SiteAdmins",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SiteAdmins", x => x.Id);
-                });
-
-            migrationBuilder.InsertData(
-                table: "SiteAdmins",
-                columns: new[] { "Id", "Email", "FullName", "Password" },
-                values: new object[] { 1, "masoud.xpress@gmail.com", "مسعود خدادادی", "f1ac294f56ceb706e90dd1719934c3ae444431483a2857bb001289f7d5acc0bb" });
+            migrationBuilder.AddColumn<DateTime>(
+                name: "DateTime",
+                table: "ContactForms",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 182, DateTimeKind.Local).AddTicks(3650));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 841, DateTimeKind.Local).AddTicks(7655));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 185, DateTimeKind.Local).AddTicks(5666));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1023));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 185, DateTimeKind.Local).AddTicks(5731));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1084));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 185, DateTimeKind.Local).AddTicks(5738));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1091));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 185, DateTimeKind.Local).AddTicks(5742));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1095));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 185, DateTimeKind.Local).AddTicks(5746));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1099));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 18, 40, 2, 185, DateTimeKind.Local).AddTicks(5750));
+                value: new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1102));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "SiteAdmins");
+            migrationBuilder.DropColumn(
+                name: "DateTime",
+                table: "ContactForms");
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 643, DateTimeKind.Local).AddTicks(1290));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 132, DateTimeKind.Local).AddTicks(2477));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(8988));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3097));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9050));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3176));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9058));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3183));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9063));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3187));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9067));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3191));
 
             migrationBuilder.UpdateData(
                 table: "WorkSamples",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreateDateTime",
-                value: new DateTime(2020, 8, 26, 8, 11, 28, 646, DateTimeKind.Local).AddTicks(9071));
+                value: new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3195));
         }
     }
 }

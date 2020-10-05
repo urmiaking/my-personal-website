@@ -5,25 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200826010730_InitialMigration.cs" />
-    <Compile Remove="Migrations\20200826010730_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20200826015257_InitialMigration.cs" />
-    <Compile Remove="Migrations\20200826015257_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20200826015417_InitialMigration.cs" />
-    <Compile Remove="Migrations\20200826015417_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20200826023603_SeedData.cs" />
-    <Compile Remove="Migrations\20200826023603_SeedData.Designer.cs" />
-    <Compile Remove="Migrations\20200826023854_SeedData.cs" />
-    <Compile Remove="Migrations\20200826023854_SeedData.Designer.cs" />
-    <Compile Remove="Migrations\20200826025533_InitialMigration.cs" />
-    <Compile Remove="Migrations\20200826025533_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20200828215402_AddClientViit.cs" />
-    <Compile Remove="Migrations\20200828215402_AddClientViit.Designer.cs" />
-    <Compile Remove="Migrations\20200922212404_AddBlogs.cs" />
-    <Compile Remove="Migrations\20200922212404_AddBlogs.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
