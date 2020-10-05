@@ -55,7 +55,7 @@ namespace PersonalWebsite
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
