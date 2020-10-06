@@ -69,7 +69,8 @@ namespace PersonalWebsite.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     EmailAddress = table.Column<string>(nullable: false),
-                    Message = table.Column<string>(nullable: false)
+                    Message = table.Column<string>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -423,13 +424,13 @@ namespace PersonalWebsite.Migrations
                 columns: new[] { "Id", "CreateDateTime", "Image", "Title" },
                 values: new object[,]
                 {
-                    { 6, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3191), "toplearn.png", "وبسایت تاپ لرن" },
-                    { 1, new DateTime(2020, 10, 5, 0, 34, 9, 132, DateTimeKind.Local).AddTicks(2477), "clinic.jpg", "کلینیک فوق تخصصی بهار" },
-                    { 2, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3097), "docker.png", "وبسایت خبری" },
-                    { 3, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3176), "airlink-smart-hub.jpg", "سرور اسکای نیک" },
-                    { 4, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3183), "machine-learning.png", "یادگیری ماشین" },
-                    { 5, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3187), "corona.png", "وبسایت مدیریت آمار کرونا" },
-                    { 7, new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3195), "university.jpg", "سیستم دانشگاه" }
+                    { 6, new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9785), "toplearn.png", "وبسایت تاپ لرن" },
+                    { 1, new DateTime(2020, 10, 6, 6, 26, 8, 21, DateTimeKind.Local).AddTicks(6503), "clinic.jpg", "کلینیک فوق تخصصی بهار" },
+                    { 2, new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9706), "docker.png", "وبسایت خبری" },
+                    { 3, new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9770), "airlink-smart-hub.jpg", "سرور اسکای نیک" },
+                    { 4, new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9777), "machine-learning.png", "یادگیری ماشین" },
+                    { 5, new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9782), "corona.png", "وبسایت مدیریت آمار کرونا" },
+                    { 7, new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9789), "university.jpg", "سیستم دانشگاه" }
                 });
 
             migrationBuilder.InsertData(

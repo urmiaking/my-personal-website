@@ -847,49 +847,49 @@ namespace PersonalWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 841, DateTimeKind.Local).AddTicks(7655),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 21, DateTimeKind.Local).AddTicks(6503),
                             Image = "clinic.jpg",
                             Title = "کلینیک فوق تخصصی بهار"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1023),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9706),
                             Image = "docker.png",
                             Title = "وبسایت خبری"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1084),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9770),
                             Image = "airlink-smart-hub.jpg",
                             Title = "سرور اسکای نیک"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1091),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9777),
                             Image = "machine-learning.png",
                             Title = "یادگیری ماشین"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1095),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9782),
                             Image = "corona.png",
                             Title = "وبسایت مدیریت آمار کرونا"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1099),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9785),
                             Image = "toplearn.png",
                             Title = "وبسایت تاپ لرن"
                         },
                         new
                         {
                             Id = 7,
-                            CreateDateTime = new DateTime(2020, 10, 5, 6, 8, 17, 845, DateTimeKind.Local).AddTicks(1102),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9789),
                             Image = "university.jpg",
                             Title = "سیستم دانشگاه"
                         });

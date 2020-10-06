@@ -10,7 +10,7 @@ using PersonalWebsite.Data;
 namespace PersonalWebsite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201004210409_InitialMigration")]
+    [Migration("20201006025608_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,6 +179,9 @@ namespace PersonalWebsite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -846,49 +849,49 @@ namespace PersonalWebsite.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 132, DateTimeKind.Local).AddTicks(2477),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 21, DateTimeKind.Local).AddTicks(6503),
                             Image = "clinic.jpg",
                             Title = "کلینیک فوق تخصصی بهار"
                         },
                         new
                         {
                             Id = 2,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3097),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9706),
                             Image = "docker.png",
                             Title = "وبسایت خبری"
                         },
                         new
                         {
                             Id = 3,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3176),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9770),
                             Image = "airlink-smart-hub.jpg",
                             Title = "سرور اسکای نیک"
                         },
                         new
                         {
                             Id = 4,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3183),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9777),
                             Image = "machine-learning.png",
                             Title = "یادگیری ماشین"
                         },
                         new
                         {
                             Id = 5,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3187),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9782),
                             Image = "corona.png",
                             Title = "وبسایت مدیریت آمار کرونا"
                         },
                         new
                         {
                             Id = 6,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3191),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9785),
                             Image = "toplearn.png",
                             Title = "وبسایت تاپ لرن"
                         },
                         new
                         {
                             Id = 7,
-                            CreateDateTime = new DateTime(2020, 10, 5, 0, 34, 9, 136, DateTimeKind.Local).AddTicks(3195),
+                            CreateDateTime = new DateTime(2020, 10, 6, 6, 26, 8, 24, DateTimeKind.Local).AddTicks(9789),
                             Image = "university.jpg",
                             Title = "سیستم دانشگاه"
                         });
