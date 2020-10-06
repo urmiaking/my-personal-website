@@ -274,6 +274,7 @@ HOME
                             var categories = workSample.WorkSampleCategories.Select(a => a.Category.Group);
                             var groups = "";
                             var dataSrc = $"modal-{workSample.Id}";
+
                             foreach (var category in categories)
                             {
                                 switch (category)
@@ -302,53 +303,20 @@ HOME
                                         <i class="fa fa-search"></i>
                                         <h5 class="title">@workSample.Title</h5>
                                         <span class="sub-title">مشاهده جزییات</span>
-                                        <a data-fancybox data-src="#@dataSrc"></a>
+                                        <a class="modal-link"
+                                           data-src="#portfolio-modal"
+                                           data-targeturl="@Url.Action("Portfolio","Home",new { id = workSample.Id })"></a>
                                     </figcaption>
                                 </figure>
                             </div>
-
                         }
-
-
                     </div> <!-- End: .grid .project-gallery -->
                 </div> <!-- End: .grid .project-gallery -->
             </div> <!-- End: .part -->
         </div> <!-- End: .row -->
     </div>
-    @foreach (var workSample in Model.WorkSamples)
-    {
-        var dataSrc = $"modal-{workSample.Id}";
-        <!-- Work Sample Modal -->
-        <div class="mh-portfolio-modal" id="@dataSrc">
-            <div class="container">
-                <div class="row mh-portfolio-modal-inner">
-                    <div class="col-sm-5">
-                        <h2 class="rtl-text">@workSample.Detail.Title</h2>
-                        <p class="justify">
-                            @workSample.Detail.Description
-                        </p>
-
-                        <a href="@workSample.Detail.Link" class="btn btn-fill"> <li class="fa fa-github"></li> مشاهده در گیت هاب</a>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="mh-portfolio-modal-img">
-                            <img src="/images/portfolio/@workSample.Detail.Image" alt="" class="img-fluid">
-                            <p class="justify">@workSample.Detail.ImageDescription</p>
-                        </div>
-                        <div class="mh-about-tag rtl-text">
-                            <ul>
-                                @foreach (var technology in workSample.Detail.Technologies.Split(","))
-                                {
-                                    <li><span>@technology</span></li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
 </section>
+
 
 <!--
 ===================
@@ -386,3 +354,14 @@ BLOGS
         </div>
     </div>
 </section>
+
+<!--
+PORTFOLIO MODAL
+-->
+<div class="mh-portfolio-modal" id="portfolio-modal">
+    <div class="container" id="portfolio-container">
+        <div class="row mh-portfolio-modal-inner" id="portfolio-data">
+
+        </div>
+    </div>
+</div>

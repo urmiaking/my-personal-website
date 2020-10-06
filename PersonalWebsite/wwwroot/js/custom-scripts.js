@@ -107,7 +107,7 @@
     |================
     */
 
-    $("[data-fancybox]").fancybox({});
+    //$("[data-fancybox]").fancybox({});
 
 
     /*
@@ -412,6 +412,26 @@
         $("#msgSubmit").removeClass().addClass(msgClasses).text(msg);
     }
 
+    $('.modal-link').on('click',
+        function (e) {
+            if ($('#portfolio-modal').length) {
+                $('#portfolio-modal').remove();
+            }
+            $.get($(this).data("targeturl"), function (data) {
 
+                $('body').append($('<div class="mh-portfolio-modal"' +
+                    ' id="portfolio-modal"><div class="container">' +
+                    '<div class="row mh-portfolio-modal-inner">' +
+                    data +
+                    '</div>' +
+                    ' </div> </div>'));
+
+                $.fancybox.open({
+                    src: '#portfolio-modal',
+                    type: 'inline',
+                    smallBtn: false
+                });
+            });
+        });
 
 }(jQuery));

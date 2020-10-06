@@ -38,3 +38,8 @@
 .keywords a:hover {
     background-color: #dfdfdf
 }
+
+
+#overlay img {
+    display: none;
+}

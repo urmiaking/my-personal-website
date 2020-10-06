@@ -1,0 +1,24 @@
+﻿@model PersonalWebsite.Models.WorkSample
+
+<div class="col-sm-5">
+    <h2 class="rtl-text">@Model.Detail.Title</h2>
+    <p class="justify">
+        @Model.Detail.Description
+    </p>
+
+    <a href="@Model.Detail.Link" class="btn btn-fill"> <li class="fa fa-github"></li> مشاهده در گیت هاب</a>
+</div>
+<div class="col-sm-7">
+    <div class="mh-portfolio-modal-img">
+        <img src="/images/portfolio/@Model.Detail.Image" alt="" class="img-fluid">
+        <p class="justify">@Model.Detail.ImageDescription</p>
+    </div>
+    <div class="mh-about-tag rtl-text">
+        <ul>
+            @foreach (var technology in Model.Detail.Technologies.Split(","))
+            {
+                <li><span>@technology</span></li>
+            }
+        </ul>
+    </div>
+</div>

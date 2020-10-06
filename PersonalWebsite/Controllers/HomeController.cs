@@ -74,5 +74,24 @@ namespace PersonalWebsite.Controllers
 
             return Content("success");
         }
+
+        public async Task<IActionResult> Portfolio(int id = 0)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var workSample = await _db.WorkSamples
+                .Include(a => a.Detail)
+                .FirstOrDefaultAsync(a => a.Id.Equals(id));
+
+            if (workSample is null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_PortfolioModal", workSample);
+        }
     }
 }
