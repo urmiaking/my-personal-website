@@ -5,8 +5,11 @@
     <p class="justify">
         @Model.Detail.Description
     </p>
+    @if (!string.IsNullOrEmpty(Model.Detail.Link))
+    {
+        <a href="@Model.Detail.Link" class="btn btn-fill"> <li class="fa fa-github"></li> مشاهده در گیت هاب</a>
+    }
 
-    <a href="@Model.Detail.Link" class="btn btn-fill"> <li class="fa fa-github"></li> مشاهده در گیت هاب</a>
 </div>
 <div class="col-sm-7">
     <div class="mh-portfolio-modal-img">
