@@ -2,6 +2,8 @@
 @model IndexViewModel
 @{
     ViewData["Title"] = "صفحه شخصی مسعود خدادادی";
+    ViewBag.Description = "وبسایت شخصی و رزومه مهندس مسعود خدادادی";
+    ViewBag.OgImageUrl = "images/profile.jpg";
 }
 
 <!--
@@ -335,9 +337,9 @@ BLOGS
                 {
                     <div class="col-sm-12 col-md-4">
                         <div class="mh-blog-item dark-bg">
-                            <img src="/images/blog/@blog.ImageUrl" alt="" class="img-fluid" asp-append-version="true">
+                            <img src="/images/blog/@blog.ImageUrl" alt="" class="img-fluid center-image" asp-append-version="true">
                             <div class="blog-inner">
-                                <h2><a href="#">@blog.Title</a></h2>
+                                <h2><a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id asp-route-title="@blog.Title.FixUrl()">@blog.Title</a></h2>
                                 <div class="mh-blog-post-info">
                                     <ul>
                                         <li><a>@blog.Author</a><strong></strong></li>
@@ -345,7 +347,7 @@ BLOGS
                                     </ul>
                                 </div>
                                 <p>@blog.ShortDescription</p>
-                                <a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id>ادامه مطلب</a>
+                                <a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id asp-route-title="@blog.Title.FixUrl()">ادامه مطلب</a>
                             </div>
                         </div>
                     </div>
@@ -353,7 +355,7 @@ BLOGS
             }
         </div>
         <div class="text-center wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">
-            <a asp-controller="Blog" asp-action="Index" class="btn btn-info">آرشیو بلاگ ها</a>
+            <a asp-area="" asp-controller="Blog" asp-action="Index" class="btn btn-info">آرشیو بلاگ ها</a>
         </div>
     </div>
 </section>

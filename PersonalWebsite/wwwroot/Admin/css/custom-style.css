@@ -5,3 +5,10 @@
 .input-validation-error {
     border: 1px solid red;
 }
+
+.center-image {
+    max-height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

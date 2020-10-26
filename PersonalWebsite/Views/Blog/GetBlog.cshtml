@@ -3,6 +3,8 @@
 @inject AppDbContext Db
 @{
     ViewData["Title"] = Model.Title;
+    ViewBag.Description = $"وبلاگ شخصی مسعود خدادادی - {Model.ShortDescription}";
+    ViewBag.OgImageUrl = $"images/blog/{Model.ImageUrl}";
 }
 
 <section class="mh-home image-bg home-2-img">
@@ -33,9 +35,9 @@
                                         <li><strong>در تاریخ:</strong><a href="#">@Model.DateTime.ToPersianDateString()</a></li>
                                     </ul>
                                 </div>
-                                <p style="line-height: 1.6; text-align: justify">
+                                <div style="line-height: 1.6; text-align: justify">
                                     @Html.Raw(Model.Description)
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,14 +50,14 @@
                                     <ul>
                                         @foreach (var tag in Model.Tags.Split(","))
                                         {
-                                            <li><span><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@tag">@tag</a></span></li>
+                                            <li><span><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@tag.FixUrl()">@tag</a></span></li>
                                         }
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Comments-->
+                   
                 </div>
             </div>
 
@@ -74,10 +76,10 @@
                             دارای مدرک کارشناسی مهندسی کامپیوتر و علاقمند به برنامه نویسی تحت دات نت
                         </p>
                         <ul class="social-icon">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-github"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="https://t.me/urmiaking"><i class="fa fa-telegram"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/masoud-khodadadi-43baa079/"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="https://github.com/urmiaking"><i class="fa fa-github"></i></a></li>
+                            <li><a href="https://instagram.com/masoudkhodadadi.ir"><i class="fa fa-instagram"></i></a></li>
                         </ul>
                     </div>
                     <div class="sidebar-item mh-blog-category">
@@ -85,15 +87,9 @@
                         <ul>
                             @foreach (var category in Db.BlogCategories.Include(a => a.Blogs))
                             {
-                                <li><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@category.Name">@category.Name (@category.Blogs.Count)</a></li>
+                                <li><a asp-controller="Blog" asp-action="Index" asp-route-searchString="@category.Name.FixUrl()">@category.Name (@category.Blogs.Count)</a></li>
                             }
                         </ul>
-                    </div>
-                    
-                    <div class="sidebar-item mh-blog-insta">
-                        <h3>اینستاگرام</h3>
-                        
-                        <div class='embedsocial-instagram' data-ref="5523d9e73b7fc0290b6f7f9142a8ead786bddfdd"></div><script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>
                     </div>
                 </div>
             </div>

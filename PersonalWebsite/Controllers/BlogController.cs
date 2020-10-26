@@ -26,6 +26,7 @@ namespace PersonalWebsite.Controllers
             if (searchString != null)
             {
                 page = 1;
+                searchString = searchString.EncodeUrl();
             }
             else
             {
@@ -34,8 +35,8 @@ namespace PersonalWebsite.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            int pageSize = 6;
-            int pageNumber = (page ?? 1);
+            const int pageSize = 6;
+            var pageNumber = (page ?? 1);
 
             if (string.IsNullOrEmpty(searchString))
             {
@@ -46,18 +47,18 @@ namespace PersonalWebsite.Controllers
             var searchResult = _db.Blogs
                 .Include(a => a.Category)
                 .Where(a =>
-                    a.Tags.Contains(searchString) || a.Description.Contains(searchString) ||
-                    a.Title.Contains(searchString) ||
-                    a.ShortDescription.Contains(searchString) ||
-                    a.Category.Name.Equals(searchString))
+                    a.Tags.Contains(searchString.EncodeUrl()) || a.Description.Contains(searchString.EncodeUrl()) ||
+                    a.Title.Contains(searchString.EncodeUrl()) ||
+                    a.ShortDescription.Contains(searchString.EncodeUrl()) ||
+                    a.Category.Name.Equals(searchString.EncodeUrl()))
                 .Distinct()
                 .OrderByDescending(a => a.DateTime);
 
             return View(await PaginatedList<Blog>.CreateAsync(searchResult, pageNumber, pageSize));
         }
 
-        [Route("[controller]/{id}")]
-        public async Task<IActionResult> GetBlog(int id = 0)
+        [Route("[controller]/{id}/{title}")]
+        public async Task<IActionResult> GetBlog(int id, string title)
         {
             var blog = await _db.Blogs.FindAsync(id);
 

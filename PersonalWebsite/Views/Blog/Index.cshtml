@@ -1,6 +1,8 @@
 ﻿@model PaginatedList<Blog>
 @{
     ViewData["Title"] = "آرشیو نوشته های مسعود خدادادی";
+    ViewBag.Description = "وبلاگ شخصی مسعود خدادادی";
+    ViewBag.OgImageUrl = "images/home-bg-img.jpg";
 }
 
 <section class="mh-home image-bg home-2-img">
@@ -62,7 +64,7 @@ BLOGS
                         <div class="mh-blog-item dark-bg">
                             <img src="/images/blog/@blog.ImageUrl" alt="" class="img-fluid">
                             <div class="blog-inner">
-                                <h2><a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id>@blog.Title</a></h2>
+                                <h2><a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id asp-route-title="@blog.Title.FixUrl()">@blog.Title</a></h2>
                                 <div class="mh-blog-post-info">
                                     <ul>
                                         <li><a>@blog.Author</a><strong></strong></li>
@@ -70,7 +72,7 @@ BLOGS
                                     </ul>
                                 </div>
                                 <p>@blog.ShortDescription</p>
-                                <a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id>ادامه مطلب</a>
+                                <a asp-area="" asp-controller="Blog" asp-action="GetBlog" asp-route-id=@blog.Id asp-route-title="@blog.Title.FixUrl()">ادامه مطلب</a>
                             </div>
                         </div>
                     </div>

@@ -35,5 +35,9 @@ namespace PersonalWebsite.Utilities
 
             return result;
         }
-    }
+
+        public static string FixUrl(this string url) => url.Replace(" ", "-");
+        
+        public static string EncodeUrl(this string url) => url.Replace("-", " ");
+        }
 }
