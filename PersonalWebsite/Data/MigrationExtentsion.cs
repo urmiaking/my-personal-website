@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PersonalWebsite.Areas.Admin.Models;
@@ -525,20 +526,6 @@ namespace PersonalWebsite.Data
                     FullName = "مسعود خدادادی",
                     Password = "f1ac294f56ceb706e90dd1719934c3ae444431483a2857bb001289f7d5acc0bb",
                     ResetPasswordCode = ""
-                });
-
-            #endregion
-
-            #region MailServer
-
-            modelBuilder.Entity<MailServer>()
-                .HasData(new MailServer()
-                {
-                    Id = 1,
-                    HostAddress = "smtp.gmail.com",
-                    Port = 587,
-                    ServerAddress = "masoud.xpress@gmail.com",
-                    Password = "MASOUD7559"
                 });
 
             #endregion

@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>26938494-a1e9-451b-a735-08351a353d08</UserSecretsId>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    <RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
 
   <ItemGroup>

@@ -374,11 +374,6 @@ namespace PersonalWebsite.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "MailServers",
-                columns: new[] { "Id", "HostAddress", "Password", "Port", "ServerAddress", "Type" },
-                values: new object[] { 1, "smtp.gmail.com", "MASOUD7559", 587, "masoud.xpress@gmail.com", null });
-
-            migrationBuilder.InsertData(
                 table: "PersonalSkills",
                 columns: new[] { "Id", "Progress", "Title" },
                 values: new object[,]
